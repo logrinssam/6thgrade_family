@@ -7,446 +7,562 @@
 <title>2·6학년 새로가족 전래 놀이 한마당</title>
 
 <style>
-:root {
+:root{
   --brown:#4a2b20;
-  --light-brown:#8b6a56;
-  --cream:#fffaf0;
-  --paper:#eee5d7;
+  --light-brown:#826754;
   --yellow:#f1dc00;
-  --red:#e64d49;
-  --blue:#65a9cf;
-  --green:#6ba978;
-  --border:#ded1bf;
+  --red:#df4b46;
 }
 
-* {
-  box-sizing:border-box;
-}
+*{box-sizing:border-box;}
 
-body {
+body{
   margin:0;
   min-height:100vh;
-  font-family:
-    "Pretendard",
-    "Noto Sans KR",
-    "Apple SD Gothic Neo",
-    sans-serif;
-
+  font-family:"Pretendard","Noto Sans KR","Apple SD Gothic Neo",sans-serif;
   color:var(--brown);
-
   background:
     radial-gradient(circle at 0 0,#f8dd82 0 140px,transparent 141px),
     radial-gradient(circle at 100% 100%,#f3e5bd 0 120px,transparent 121px),
     #fffefb;
 }
 
-button {
+button{
   font:inherit;
+  touch-action:manipulation;
+  user-select:none;
+  -webkit-user-select:none;
+  -webkit-touch-callout:none;
 }
 
-/* =========================
-   교실 선택
-========================= */
+button:focus-visible{
+  outline:3px solid #3f7bd0;
+  outline-offset:2px;
+}
 
-#setup {
+img{
+  -webkit-user-drag:none;
+  user-select:none;
+}
+
+/* ----------------------
+   놀이 이미지 타일
+---------------------- */
+
+.tile{
+  display:grid;
+  place-items:center;
+  padding:10px;
+  border:2px solid #ece1d1;
+  border-radius:22px;
+  background:#fff;
+}
+
+.tile img{
+  max-width:100%;
+  max-height:100%;
+  border-radius:12px;
+  object-fit:contain;
+}
+
+/* ----------------------
+   교실 선택
+---------------------- */
+
+#setup{
   position:fixed;
   inset:0;
-  background:#fffdf8;
   z-index:1000;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   padding:25px;
+  overflow:auto;
+  background:#fffdf8;
 }
 
-.setup-box {
-  width:min(850px,100%);
+.setup-box{
+  width:min(880px,100%);
   text-align:center;
 }
 
-.setup-title {
-  background:#e8ded0;
-  padding:22px;
+.setup-title{
+  margin-bottom:18px;
+  padding:20px;
   border-radius:20px;
-
-  font-size:clamp(25px,4vw,42px);
+  background:#e8ded0;
+  font-size:clamp(24px,3.6vw,38px);
   font-weight:900;
-
-  margin-bottom:35px;
 }
 
-.setup-sub {
-  font-size:21px;
+.setup-clock{
+  font-size:clamp(32px,5.5vw,54px);
+  font-weight:900;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-2px;
+}
+
+.setup-clock-note{
+  margin:6px 0 24px;
+  color:#8a7261;
+  font-size:15px;
+  font-weight:700;
+  line-height:1.5;
+}
+
+.setup-sub{
+  margin-bottom:18px;
+  font-size:20px;
   font-weight:800;
-  margin-bottom:20px;
 }
 
-.room-buttons {
+.room-buttons{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:15px;
 }
 
-.room-btn {
+.room-btn{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:16px 18px;
   border:2px solid #e4d7c6;
-  background:white;
   border-radius:22px;
-  padding:25px 15px;
-
+  background:#fff;
+  color:inherit;
+  text-align:left;
   cursor:pointer;
-
   box-shadow:0 8px 25px rgba(70,45,30,.08);
 }
 
-.room-btn:hover {
+.room-btn:hover{
   transform:translateY(-3px);
-  background:#fff8dc;
+  background:#fffbef;
 }
 
-.room-btn .emoji {
-  font-size:42px;
+.room-btn .tile{
+  flex:none;
+  width:92px;
+  height:82px;
+  border-radius:16px;
 }
 
-.room-btn strong {
+.room-btn strong{
   display:block;
   font-size:24px;
-  margin-top:5px;
 }
 
-.room-btn span {
+.room-btn span{
   color:#836a59;
+  font-size:17px;
   font-weight:700;
 }
 
-/* =========================
-   메인
-========================= */
+.setup-tools{margin-top:22px;}
 
-.page {
-  width:min(1180px,calc(100% - 30px));
-  margin:auto;
-  padding:22px 0 60px;
-}
-
-.header {
-  background:#e7ded1;
-  padding:18px 25px;
-
-  border-radius:20px;
-  text-align:center;
-
-  box-shadow:0 8px 25px rgba(70,45,30,.08);
-}
-
-.header-title {
-  font-size:clamp(27px,4.5vw,50px);
-  font-weight:900;
-  letter-spacing:-2px;
-}
-
-.top-info {
-  margin-top:13px;
-
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:8px;
-}
-
-.badge {
-  background:white;
-  border:1px solid #ded3c5;
-
+.setup-tools button{
+  padding:11px 18px;
+  border:1px solid #ded3c6;
   border-radius:999px;
-
-  padding:7px 13px;
-
+  background:#fff;
+  color:#6d5949;
+  cursor:pointer;
   font-size:14px;
   font-weight:800;
 }
 
-#sessionBadge {
-  background:#fff1b8;
+/* ----------------------
+   메인
+---------------------- */
+
+.page{
+  width:min(1180px,calc(100% - 30px));
+  margin:auto;
+  padding:20px 0 70px;
 }
 
-#previewBadge {
-  display:none;
-  background:#ffe0e0;
-  color:#a70000;
-}
-
-.main-card {
-  margin-top:20px;
-
-  background:white;
-
-  border:2px solid #eee3d4;
-  border-radius:28px;
-
-  overflow:hidden;
-
-  box-shadow:0 12px 35px rgba(70,45,30,.10);
-}
-
-.status {
+.header{
+  padding:16px 25px;
+  border-radius:20px;
+  background:#e7ded1;
   text-align:center;
-
-  padding:14px;
-
-  background:#f3ede4;
-
-  font-size:19px;
-  font-weight:900;
+  box-shadow:0 8px 25px rgba(70,45,30,.08);
 }
 
-.status.warning {
-  background:#fff0a6;
-}
-
-.status.danger {
-  background:#ffd4d4;
-  color:#a80000;
-}
-
-.content {
-  text-align:center;
-  padding:34px 25px 30px;
-}
-
-.room-label {
-  color:var(--light-brown);
-  font-weight:800;
-  font-size:19px;
-}
-
-.play-name {
-  margin-top:5px;
-
-  font-size:clamp(40px,7vw,75px);
-
+.header-title{
+  font-size:clamp(24px,3.8vw,42px);
   font-weight:900;
   letter-spacing:-2px;
 }
 
-.timer-label {
-  margin-top:32px;
+.top-info{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
 
+.badge{
+  display:inline-flex;
+  align-items:center;
+  padding:7px 13px;
+  border:1px solid #ded3c5;
+  border-radius:999px;
+  background:#fff;
+  font-size:14px;
+  font-weight:800;
+}
+
+#partBadge{background:#fff1b8;}
+
+#manualBadge,
+#previewBadge{display:none;}
+
+#manualBadge{
+  background:#ffd9d9;
+  color:#a50000;
+}
+
+#previewBadge{
+  background:#dcecff;
+  color:#245d91;
+}
+
+#manualBadge.show,
+#previewBadge.show{display:inline-flex;}
+
+.main-card{
+  margin-top:18px;
+  overflow:hidden;
+  border:2px solid #eee3d4;
+  border-radius:28px;
+  background:#fff;
+  box-shadow:0 12px 35px rgba(70,45,30,.10);
+}
+
+.status{
+  padding:13px;
+  background:#f3ede4;
+  text-align:center;
+  font-size:19px;
+  font-weight:900;
+}
+
+.status.warning{background:#fff0a6;}
+
+.status.danger{
+  background:#ffd4d4;
+  color:#a80000;
+}
+
+.status.paused{
+  background:#e2e6ea;
+  color:#3f4a54;
+}
+
+.content{
+  padding:28px 25px 28px;
+  text-align:center;
+}
+
+.identity{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:22px;
+}
+
+.identity .tile{
+  flex:none;
+  width:178px;
+  height:158px;
+}
+
+.identity-text{text-align:left;}
+
+.identity.no-image .tile{display:none;}
+
+.identity.no-image .identity-text{text-align:center;}
+
+.room-label{
   color:var(--light-brown);
-
   font-size:19px;
   font-weight:800;
 }
 
-.timer {
-  margin-top:5px;
-
-  font-size:clamp(85px,15vw,155px);
-  line-height:1;
-
+.play-name{
+  margin-top:3px;
+  font-size:clamp(36px,5.6vw,62px);
   font-weight:900;
+  letter-spacing:-2px;
+  line-height:1.1;
+}
 
+.timer-label{
+  margin-top:24px;
+  color:var(--light-brown);
+  font-size:19px;
+  font-weight:800;
+}
+
+.timer{
+  margin-top:3px;
+  font-size:clamp(76px,13.5vw,142px);
+  line-height:1;
+  font-weight:900;
   font-variant-numeric:tabular-nums;
-
   letter-spacing:-5px;
 }
 
-.timer.warning {
-  color:#d69800;
+.timer.wait{
+  font-size:clamp(48px,8vw,88px);
+  letter-spacing:-3px;
 }
 
-.timer.danger {
+.timer.warning{color:#d69800;}
+
+.timer.danger{
   color:var(--red);
   animation:pulse .55s infinite alternate;
 }
 
-@keyframes pulse {
-  from {
-    transform:scale(1);
-  }
-
-  to {
-    transform:scale(1.025);
-  }
+.timer.paused{
+  color:#8d99a4;
+  animation:none;
 }
 
-.guide {
-  max-width:850px;
+@keyframes pulse{
+  from{transform:scale(1);}
+  to{transform:scale(1.025);}
+}
 
-  margin:30px auto 0;
+@media(prefers-reduced-motion:reduce){
+  .timer.danger{animation:none;}
+  .room-btn:hover{transform:none;}
+}
 
-  padding:20px 22px;
-
-  border-radius:18px;
-
-  background:#faf6ee;
-
+.guide{
+  max-width:860px;
+  margin:26px auto 0;
+  padding:18px 22px;
   border:1px solid #e8ddcd;
-
-  font-size:clamp(18px,2.3vw,25px);
+  border-radius:18px;
+  background:#faf6ee;
+  font-size:clamp(18px,2.2vw,24px);
   font-weight:750;
   line-height:1.6;
 }
 
-.guide strong {
-  color:#c84732;
-}
+.guide strong{color:#c84732;}
 
-.route {
-  padding:0 25px 32px;
-}
+.route{padding:0 25px 30px;}
 
-.route-title {
+.route-title{
+  margin-bottom:12px;
   text-align:center;
-  font-weight:800;
   color:var(--light-brown);
-  margin-bottom:13px;
+  font-weight:800;
 }
 
-.steps {
+.steps{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:10px;
 }
 
-.step {
-  padding:14px 5px;
-
+.step{
+  padding:13px 5px;
   border:2px solid #e7ded2;
   border-radius:16px;
-
   background:#faf8f4;
-
   text-align:center;
   font-weight:800;
 }
 
-.step.active {
-  background:#fff5ad;
-  border-color:#e9ce00;
-
+.step.active{
   transform:translateY(-3px);
+  border-color:#e9ce00;
+  background:#fff5ad;
 }
 
-.step.done {
-  opacity:.48;
-}
+.step.done{opacity:.48;}
 
-.step small {
-  display:block;
-  margin-bottom:3px;
-  color:#8b725e;
-}
+/* ----------------------
+   운영 버튼
+---------------------- */
 
-/* =========================
-   우측 버튼
-========================= */
-
-.controls {
+.controls{
   position:fixed;
-
   right:17px;
   bottom:17px;
-
-  display:flex;
-  gap:8px;
-
   z-index:100;
 }
 
-.control-btn {
+.control-btn{
+  padding:11px 15px;
   border:none;
-
-  background:#4a3327;
-  color:white;
-
-  padding:11px 14px;
-
   border-radius:999px;
-
+  background:#4a3327;
+  color:#fff;
   cursor:pointer;
-
   font-size:14px;
   font-weight:800;
-
   box-shadow:0 6px 20px rgba(0,0,0,.18);
+  opacity:.55;
 }
 
-@media(max-width:650px) {
+.control-btn:hover,
+.control-btn.open{opacity:1;}
 
-  .room-buttons {
-    grid-template-columns:1fr;
-  }
+/* ----------------------
+   운영자 패널
+---------------------- */
 
-  .steps {
-    grid-template-columns:1fr 1fr;
-  }
+#adminPanel{
+  position:fixed;
+  right:18px;
+  bottom:72px;
+  z-index:500;
+  display:none;
+  width:min(390px,calc(100vw - 36px));
+  max-height:calc(100vh - 100px);
+  overflow:auto;
+  padding:20px;
+  border:1px solid #d8cbbd;
+  border-radius:22px;
+  background:#fff;
+  box-shadow:0 15px 45px rgba(0,0,0,.22);
+}
 
-  .timer {
-    letter-spacing:-3px;
-  }
+#adminPanel.show{display:block;}
 
+.admin-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.admin-title{
+  margin:0;
+  font-size:21px;
+  font-weight:900;
+}
+
+.panel-close{
+  flex:none;
+  width:34px;
+  height:34px;
+  border:1px solid #e0d5c8;
+  border-radius:50%;
+  background:#faf7f2;
+  color:#6d5949;
+  cursor:pointer;
+  font-size:16px;
+  font-weight:900;
+  line-height:1;
+}
+
+.admin-description{
+  margin:7px 0 14px;
+  color:#806a59;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.manual-warning{
+  display:none;
+  margin-bottom:12px;
+  padding:10px;
+  border-radius:11px;
+  background:#ffe0e0;
+  color:#a30000;
+  text-align:center;
+  font-weight:900;
+}
+
+.manual-warning.show{display:block;}
+
+.admin-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.admin-grid button{
+  min-height:48px;
+  padding:10px 8px;
+  border:1px solid #ded3c6;
+  border-radius:12px;
+  background:#faf7f2;
+  color:inherit;
+  cursor:pointer;
+  font-weight:850;
+}
+
+.admin-grid button:hover{background:#f3eadf;}
+
+.admin-grid .primary{background:#fff3bd;}
+
+.admin-grid .auto{
+  grid-column:1 / -1;
+  background:#e3f2e6;
+  color:#285f35;
+}
+
+.admin-state{
+  margin-top:13px;
+  padding:10px;
+  border-radius:10px;
+  background:#f6f3ee;
+  font-size:12px;
+  line-height:1.6;
+}
+
+@media(max-width:820px){
+  .identity{flex-direction:column;gap:14px;}
+  .identity-text{text-align:center;}
+  .identity .tile{width:150px;height:132px;}
+}
+
+@media(max-width:650px){
+  .room-buttons{grid-template-columns:1fr;}
+  .steps{grid-template-columns:1fr 1fr;}
+  .timer{letter-spacing:-3px;}
 }
 </style>
 </head>
 
-
 <body>
 
-<!-- =========================
-     최초 교실 선택 화면
-========================= -->
-
 <div id="setup">
-
   <div class="setup-box">
 
     <div class="setup-title">
-      2·6학년 새로가족<br>
-      전래 놀이 한마당
+      2·6학년 새로가족 전래 놀이 한마당
+    </div>
+
+    <div class="setup-clock" id="setupClock">--:--:--</div>
+
+    <div class="setup-clock-note">
+      이 시각이 휴대폰 시계와 같은지 확인해주세요.<br>
+      네 교실 시계가 맞아야 진행이 어긋나지 않습니다.
     </div>
 
     <div class="setup-sub">
       이 전자칠판이 있는 교실을 선택해주세요 😊
     </div>
 
-    <div class="room-buttons">
+    <div class="room-buttons" id="roomButtons"></div>
 
-      <button class="room-btn" data-room="1">
-        <div class="emoji">🌀</div>
-        <strong>6학년 1반</strong>
-        <span>팽이 돌리기</span>
-      </button>
-
-      <button class="room-btn" data-room="2">
-        <div class="emoji">🎲</div>
-        <strong>6학년 2반</strong>
-        <span>윷놀이</span>
-      </button>
-
-      <button class="room-btn" data-room="3">
-        <div class="emoji">🪨</div>
-        <strong>6학년 3반</strong>
-        <span>공기놀이</span>
-      </button>
-
-      <button class="room-btn" data-room="4">
-        <div class="emoji">⚫</div>
-        <strong>6학년 4반</strong>
-        <span>오목 · 알까기</span>
-      </button>
-
+    <div class="setup-tools">
+      <button id="setupFullscreenBtn">⛶ 전체화면으로 보기</button>
     </div>
 
   </div>
-
 </div>
-
-
-<!-- =========================
-     메인 화면
-========================= -->
 
 <div class="page">
 
@@ -457,85 +573,92 @@ button {
     </div>
 
     <div class="top-info">
-
-      <div class="badge" id="roomBadge">
-        교실
-      </div>
-
-      <div class="badge" id="sessionBadge">
-        준비
-      </div>
-
-      <div class="badge" id="clockBadge">
-        --:--:--
-      </div>
-
-      <div class="badge" id="previewBadge">
-        🧪 미리보기
-      </div>
-
+      <div class="badge" id="roomBadge">교실</div>
+      <div class="badge" id="partBadge">준비</div>
+      <div class="badge" id="clockBadge">--:--:--</div>
+      <div class="badge" id="manualBadge">⚠️ 수동 운영 중</div>
+      <div class="badge" id="previewBadge">🧪 미리보기</div>
     </div>
 
   </header>
 
-
   <main class="main-card">
 
-    <div class="status" id="status">
-      행사 준비 중
-    </div>
-
+    <div class="status" id="status">행사 준비 중</div>
 
     <section class="content">
 
-      <div class="room-label" id="roomLabel">
+      <div class="identity" id="identity">
+
+        <div class="tile">
+          <img id="playImage" src="" alt="">
+        </div>
+
+        <div class="identity-text">
+          <div class="room-label" id="roomLabel"></div>
+          <div class="play-name" id="playName"></div>
+        </div>
+
       </div>
 
-      <div class="play-name" id="playName">
-      </div>
+      <div class="timer-label" id="timerLabel"></div>
 
-      <div class="timer-label" id="timerLabel">
-      </div>
+      <div class="timer" id="timer">--:--</div>
 
-      <div class="timer" id="timer">
-        --:--
-      </div>
-
-      <div class="guide" id="guide">
-      </div>
+      <div class="guide" id="guide"></div>
 
     </section>
 
-
     <section class="route">
 
-      <div class="route-title">
-        교실 놀이 진행
-      </div>
+      <div class="route-title">현재 부 진행 상황</div>
 
-      <div class="steps" id="steps">
-      </div>
+      <div class="steps" id="steps"></div>
 
     </section>
 
   </main>
-
 </div>
 
-
 <div class="controls">
+  <button class="control-btn" id="adminOpenBtn">⚙️ 운영</button>
+</div>
 
-  <button
-    class="control-btn"
-    id="fullscreenBtn">
-    ⛶ 전체화면
-  </button>
+<div id="adminPanel">
 
-  <button
-    class="control-btn"
-    id="changeRoomBtn">
-    ⚙ 교실 변경
-  </button>
+  <div class="admin-head">
+    <h3 class="admin-title">교사용 비상 운영</h3>
+    <button class="panel-close" id="panelCloseBtn" aria-label="패널 닫기">✕</button>
+  </div>
+
+  <div class="admin-description">
+    이 조작은 <strong>현재 교실 전자칠판에만</strong> 적용됩니다.
+    다른 교실 시간은 바뀌지 않습니다.
+  </div>
+
+  <div class="manual-warning" id="manualWarning">
+    ⚠️ 수동 운영 중 — 실제 행사 시간과 다를 수 있습니다.
+  </div>
+
+  <div class="admin-grid">
+
+    <button id="pauseBtn" class="primary">⏸ 일시정지</button>
+    <button id="changeRoomBtn">🏫 교실 변경</button>
+
+    <button id="prevBtn">◀ 이전 단계</button>
+    <button id="nextBtn">다음 단계 ▶</button>
+
+    <button id="plus30Btn">+30초 연장</button>
+    <button id="plus60Btn">+1분 연장</button>
+
+    <button id="soundBtn">🔔 알림음 켜기</button>
+    <button id="fullscreenBtn">⛶ 전체화면</button>
+
+    <button id="autoBtn" class="auto">🔄 실제 시간 자동 운영으로 복귀</button>
+
+  </div>
+
+  <div class="admin-state" id="adminState"></div>
 
 </div>
 
@@ -545,235 +668,223 @@ button {
 
 "use strict";
 
+/* =====================================================
+   1. 놀이 이미지
+===================================================== */
 
-/* ========================================================
-   1. 놀이 교실 고정 정보
-======================================================== */
-
-const ROOMS = {
-
-  1: {
-    classroom: "6학년 1반",
-    name: "팽이 돌리기",
-    emoji: "🌀",
-    nextRoom: 2
-  },
-
-  2: {
-    classroom: "6학년 2반",
-    name: "윷놀이",
-    emoji: "🎲",
-    nextRoom: 3
-  },
-
-  3: {
-    classroom: "6학년 3반",
-    name: "공기놀이",
-    emoji: "🪨",
-    nextRoom: 4
-  },
-
-  4: {
-    classroom: "6학년 4반",
-    name: "오목 · 알까기",
-    emoji: "⚫",
-    nextRoom: 1
-  }
-
+const IMAGES = {
+  top:"images/top.svg",
+  yut:"images/yut.svg",
+  gonggi:"images/gonggi.svg",
+  omok:"images/omok.svg"
 };
 
 
-/* ========================================================
-   2. 행사 시간표
+/* =====================================================
+   2. 고정 놀이 정보
+===================================================== */
 
-   [3교시]
-   10:50~10:58 놀이
-   10:58~11:00 이동
-   11:00~11:08 놀이
-   11:08~11:10 이동
-   11:10~11:18 놀이
-   11:18~11:20 이동
-   11:20~11:28 놀이
+const ROOMS = {
+  1:{classroom:"6학년 1반", name:"팽이 돌리기",  img:IMAGES.top,    nextRoom:2},
+  2:{classroom:"6학년 2반", name:"윷놀이",      img:IMAGES.yut,    nextRoom:3},
+  3:{classroom:"6학년 3반", name:"공기놀이",     img:IMAGES.gonggi, nextRoom:4},
+  4:{classroom:"6학년 4반", name:"오목 · 알까기", img:IMAGES.omok,   nextRoom:1}
+};
 
-   11:28~11:30 정리
-   11:30~11:35 교대 이동
 
-   [4교시]
-   11:35~11:43 놀이
-   11:43~11:45 이동
-   11:45~11:53 놀이
-   11:53~11:55 이동
-   11:55~12:03 놀이
-   12:03~12:05 이동
-   12:05~12:13 놀이
-======================================================== */
+/* =====================================================
+   3. 행사 시간표
+===================================================== */
 
 const PHASE_TEMPLATES = [
 
-  { type:"play", session:3, round:1, start:"10:50", end:"10:58" },
-  { type:"move", session:3, round:1, start:"10:58", end:"11:00" },
+  /* 1부 */
+  {type:"play", part:1, round:1, start:"10:50", end:"10:58"},
+  {type:"move", part:1, round:1, start:"10:58", end:"11:00"},
 
-  { type:"play", session:3, round:2, start:"11:00", end:"11:08" },
-  { type:"move", session:3, round:2, start:"11:08", end:"11:10" },
+  {type:"play", part:1, round:2, start:"11:00", end:"11:08"},
+  {type:"move", part:1, round:2, start:"11:08", end:"11:10"},
 
-  { type:"play", session:3, round:3, start:"11:10", end:"11:18" },
-  { type:"move", session:3, round:3, start:"11:18", end:"11:20" },
+  {type:"play", part:1, round:3, start:"11:10", end:"11:18"},
+  {type:"move", part:1, round:3, start:"11:18", end:"11:20"},
 
-  { type:"play", session:3, round:4, start:"11:20", end:"11:28" },
+  {type:"play", part:1, round:4, start:"11:20", end:"11:28"},
 
-  { type:"tidy", start:"11:28", end:"11:30" },
+  {type:"tidy", part:1, start:"11:28", end:"11:30"},
 
-  { type:"swap", start:"11:30", end:"11:35" },
+  {type:"swap", start:"11:30", end:"11:35"},
 
-  { type:"play", session:4, round:1, start:"11:35", end:"11:43" },
-  { type:"move", session:4, round:1, start:"11:43", end:"11:45" },
+  /* 2부 */
+  {type:"play", part:2, round:1, start:"11:35", end:"11:43"},
+  {type:"move", part:2, round:1, start:"11:43", end:"11:45"},
 
-  { type:"play", session:4, round:2, start:"11:45", end:"11:53" },
-  { type:"move", session:4, round:2, start:"11:53", end:"11:55" },
+  {type:"play", part:2, round:2, start:"11:45", end:"11:53"},
+  {type:"move", part:2, round:2, start:"11:53", end:"11:55"},
 
-  { type:"play", session:4, round:3, start:"11:55", end:"12:03" },
-  { type:"move", session:4, round:3, start:"12:03", end:"12:05" },
+  {type:"play", part:2, round:3, start:"11:55", end:"12:03"},
+  {type:"move", part:2, round:3, start:"12:03", end:"12:05"},
 
-  { type:"play", session:4, round:4, start:"12:05", end:"12:13" }
+  {type:"play", part:2, round:4, start:"12:05", end:"12:13"}
 
 ];
-
 
 const TIMEZONE = "Asia/Seoul";
 
 
-/* ========================================================
-   3. HTML 요소
-======================================================== */
+/* =====================================================
+   4. 한국어 조사
+===================================================== */
 
-const setup =
-  document.getElementById("setup");
+function lastJong(word){
 
-const roomBadge =
-  document.getElementById("roomBadge");
+  if(!word){
+    return -1;
+  }
 
-const sessionBadge =
-  document.getElementById("sessionBadge");
+  const code =
+    word.charCodeAt(word.length - 1) - 0xAC00;
 
-const clockBadge =
-  document.getElementById("clockBadge");
+  if(code < 0 || code > 11171){
+    return -1;
+  }
 
-const previewBadge =
-  document.getElementById("previewBadge");
-
-const status =
-  document.getElementById("status");
-
-const roomLabel =
-  document.getElementById("roomLabel");
-
-const playName =
-  document.getElementById("playName");
-
-const timerLabel =
-  document.getElementById("timerLabel");
-
-const timer =
-  document.getElementById("timer");
-
-const guide =
-  document.getElementById("guide");
-
-const steps =
-  document.getElementById("steps");
+  return code % 28;
+}
 
 
-/* ========================================================
-   4. URL 읽기
-======================================================== */
+function josaRo(word){
+
+  const jong = lastJong(word);
+
+  if(jong === -1){
+    return word + "로";
+  }
+
+  return word + (
+    jong === 0 || jong === 8 ? "로" : "으로"
+  );
+}
+
+
+/* =====================================================
+   5. DOM
+===================================================== */
+
+const $ = id => document.getElementById(id);
+
+const setup         = $("setup");
+const setupClock    = $("setupClock");
+const roomButtons   = $("roomButtons");
+const roomBadge     = $("roomBadge");
+const partBadge     = $("partBadge");
+const clockBadge    = $("clockBadge");
+const manualBadge   = $("manualBadge");
+const previewBadge  = $("previewBadge");
+const statusBar     = $("status");
+const identity      = $("identity");
+const playImage     = $("playImage");
+const roomLabel     = $("roomLabel");
+const playName      = $("playName");
+const timerLabel    = $("timerLabel");
+const timerEl       = $("timer");
+const guide         = $("guide");
+const stepsEl       = $("steps");
+const adminPanel    = $("adminPanel");
+const adminOpenBtn  = $("adminOpenBtn");
+const manualWarning = $("manualWarning");
+const adminState    = $("adminState");
+const pauseBtn      = $("pauseBtn");
+const soundBtn      = $("soundBtn");
+const fullscreenBtn = $("fullscreenBtn");
+
+
+/* 값이 바뀔 때만 DOM을 건드린다 */
+
+function setText(el,value){
+
+  if(el.__v !== value){
+    el.__v = value;
+    el.textContent = value;
+  }
+
+}
+
+
+function setHTML(el,value){
+
+  if(el.__v !== value){
+    el.__v = value;
+    el.innerHTML = value;
+  }
+
+}
+
+
+function setClass(el,value){
+
+  if(el.className !== value){
+    el.className = value;
+  }
+
+}
+
+
+function setImage(src,alt){
+
+  if(playImage.__src !== src){
+    playImage.__src = src;
+    playImage.src = src;
+    playImage.alt = alt;
+  }
+
+}
+
+
+/* =====================================================
+   6. URL 파라미터
+===================================================== */
 
 const params =
-  new URLSearchParams(
-    window.location.search
-  );
+  new URLSearchParams(window.location.search);
+
+const urlRoom     = Number(params.get("room"));
+const urlDate     = params.get("date");
+const previewTime = params.get("preview");
+const previewSpeed= Number(params.get("speed"));
 
 
-/*
-  room=1~4
+/* =====================================================
+   7. 한국 날짜
+===================================================== */
 
-  예:
-  ?room=1
-  ?room=2
-*/
-
-const urlRoom =
-  Number(params.get("room"));
-
-
-/*
-  테스트용 미리보기
-
-  예:
-  ?room=2&preview=11:04:20
-
-  preview가 없으면
-  무조건 실제 시각 사용
-*/
-
-const previewTime =
-  params.get("preview");
-
-
-/*
-  특정 날짜 테스트가 필요하면
-
-  ?date=2026-09-10
-
-  미입력 시 한국 기준 오늘 날짜
-*/
-
-const urlDate =
-  params.get("date");
-
-
-/* ========================================================
-   5. 한국 날짜 계산
-======================================================== */
-
-function getKoreaDateString() {
+function getKoreaDateString(){
 
   const parts =
     new Intl.DateTimeFormat(
       "en-CA",
       {
-        timeZone: TIMEZONE,
+        timeZone:TIMEZONE,
         year:"numeric",
         month:"2-digit",
         day:"2-digit"
       }
-    ).formatToParts(
-      new Date()
-    );
+    ).formatToParts(new Date());
 
   const obj = {};
 
   parts.forEach(part => {
 
-    if (
-      part.type !== "literal"
-    ) {
-      obj[part.type] =
-        part.value;
+    if(part.type !== "literal"){
+      obj[part.type] = part.value;
     }
 
   });
 
-  return (
-    obj.year +
-    "-" +
-    obj.month +
-    "-" +
-    obj.day
-  );
+  return obj.year + "-" + obj.month + "-" + obj.day;
 }
 
 
-function validDateString(value) {
+function validDateString(value){
 
   return (
     typeof value === "string" &&
@@ -789,154 +900,136 @@ const EVENT_DATE =
     : getKoreaDateString();
 
 
-/* ========================================================
-   6. 행사 시간을 절대시각(ms)으로 변환
-======================================================== */
-
-function eventTime(time) {
-
-  /*
-    한국은 UTC+9이며 DST 없음.
-
-    예:
-    2026-09-07T10:50:00+09:00
-  */
+function eventTime(time){
 
   return new Date(
-    EVENT_DATE +
-    "T" +
-    time +
-    ":00+09:00"
+    EVENT_DATE + "T" + time + ":00+09:00"
   ).getTime();
 
 }
 
 
 const PHASES =
-  PHASE_TEMPLATES.map(
-    phase => ({
-      ...phase,
-      startMs:eventTime(
-        phase.start
-      ),
-      endMs:eventTime(
-        phase.end
-      )
-    })
-  );
+  PHASE_TEMPLATES.map((phase,index) => ({
+    ...phase,
+    index,
+    startMs:eventTime(phase.start),
+    endMs:eventTime(phase.end)
+  }));
+
+const FIRST_START = PHASES[0].startMs;
+
+const LAST_END = PHASES[PHASES.length - 1].endMs;
 
 
-const FIRST_START =
-  PHASES[0].startMs;
+/* =====================================================
+   8. 리허설 미리보기
+   ?preview=10:48&speed=20
+===================================================== */
 
+function previewTimeToMs(value){
 
-const LAST_END =
-  PHASES[
-    PHASES.length - 1
-  ].endMs;
-
-
-/* ========================================================
-   7. 미리보기 시간
-======================================================== */
-
-function previewTimeToMs(value) {
-
-  if (!value)
-    return null;
-
-
-  if (
-    !/^\d{2}:\d{2}(:\d{2})?$/.test(
-      value
-    )
-  ) {
+  if(
+    !value ||
+    !/^\d{2}:\d{2}(:\d{2})?$/.test(value)
+  ){
     return null;
   }
 
-
-  const time =
-    value.length === 5
-      ? value + ":00"
-      : value;
-
+  const normalized =
+    value.length === 5 ? value + ":00" : value;
 
   const ms =
     new Date(
-      EVENT_DATE +
-      "T" +
-      time +
-      "+09:00"
+      EVENT_DATE + "T" + normalized + "+09:00"
     ).getTime();
 
+  return Number.isFinite(ms) ? ms : null;
+}
 
-  return Number.isFinite(ms)
-    ? ms
-    : null;
+
+const PREVIEW_MS = previewTimeToMs(previewTime);
+
+const PREVIEW_ACTIVE = Number.isFinite(PREVIEW_MS);
+
+const PREVIEW_LOADED = Date.now();
+
+const SPEED =
+  PREVIEW_ACTIVE &&
+  Number.isFinite(previewSpeed) &&
+  previewSpeed > 0 &&
+  previewSpeed <= 120
+    ? previewSpeed
+    : 1;
+
+if(PREVIEW_ACTIVE){
+
+  previewBadge.textContent =
+    SPEED === 1
+      ? "🧪 미리보기"
+      : "🧪 미리보기 ×" + SPEED;
+
+  previewBadge.classList.add("show");
 
 }
 
 
-const PREVIEW_MS =
-  previewTimeToMs(
-    previewTime
-  );
+function baseNow(){
 
-
-function getNow() {
-
-  /*
-    핵심!
-
-    타이머 숫자를 1초씩 감소시키지 않음.
-
-    매 화면 갱신마다
-    Date.now()를 새로 읽음.
-
-    따라서 브라우저 지연,
-    백그라운드 탭,
-    컴퓨터 일시 정지 후 복귀 등으로
-    시간이 누적해서 밀리지 않음.
-  */
-
-  if (
-    Number.isFinite(
-      PREVIEW_MS
-    )
-  ) {
-    return PREVIEW_MS;
+  if(PREVIEW_ACTIVE){
+    return PREVIEW_MS +
+      (Date.now() - PREVIEW_LOADED) * SPEED;
   }
 
   return Date.now();
-
 }
 
 
-/* ========================================================
-   8. 교실 설정
-======================================================== */
+/* =====================================================
+   9. 교실 선택
+===================================================== */
 
 let currentRoom = null;
 
 
-function readSavedRoom() {
+Object.keys(ROOMS).forEach(key => {
 
-  try {
+  const room = ROOMS[key];
+
+  const button =
+    document.createElement("button");
+
+  button.className = "room-btn";
+  button.dataset.room = key;
+
+  button.innerHTML =
+    '<div class="tile"><img src="' + room.img +
+    '" alt="' + room.name + '"></div>' +
+    '<div><strong>' + room.classroom +
+    '</strong><span>' + room.name + '</span></div>';
+
+  button.addEventListener(
+    "click",
+    () => chooseRoom(Number(key))
+  );
+
+  roomButtons.appendChild(button);
+
+});
+
+
+function readSavedRoom(){
+
+  try{
 
     const saved =
       Number(
-        localStorage.getItem(
-          "traditionalPlayRoom"
-        )
+        localStorage.getItem("traditionalPlayRoom")
       );
 
-    return ROOMS[saved]
-      ? saved
-      : null;
+    return ROOMS[saved] ? saved : null;
 
-  }
-
-  catch {
+  }catch{
 
     return null;
 
@@ -945,264 +1038,279 @@ function readSavedRoom() {
 }
 
 
-function saveRoom(room) {
+function saveRoom(room){
 
-  try {
+  try{
 
     localStorage.setItem(
       "traditionalPlayRoom",
       String(room)
     );
 
-  }
-
-  catch {
-    /* 저장 불가여도 행사 진행에는 영향 없음 */
-  }
+  }catch{}
 
 }
 
 
-function chooseRoom(room) {
+function chooseRoom(room){
 
-  if (!ROOMS[room])
+  if(!ROOMS[room]){
     return;
-
+  }
 
   currentRoom = room;
 
   saveRoom(room);
 
-  setup.style.display =
-    "none";
+  setup.style.display = "none";
 
 
-  /*
-    주소에도 room 번호 반영
-    새로고침해도 같은 교실
-  */
+  /* file:// 에서는 예외가 날 수 있다 */
 
-  const newParams =
-    new URLSearchParams(
-      window.location.search
+  try{
+
+    const newParams =
+      new URLSearchParams(window.location.search);
+
+    newParams.set("room",room);
+
+    history.replaceState(
+      null,
+      "",
+      window.location.pathname + "?" + newParams.toString()
     );
 
-  newParams.set(
-    "room",
-    room
-  );
+  }catch{}
 
 
-  history.replaceState(
-    null,
-    "",
-    window.location.pathname +
-    "?" +
-    newParams.toString()
-  );
+  loadManualState();
 
+  unlockAudio();
+
+  requestWakeLock();
 
   render();
-
 }
 
 
-/* URL room 우선 */
+if(ROOMS[urlRoom]){
 
-if (
-  ROOMS[urlRoom]
-) {
+  currentRoom = urlRoom;
 
-  currentRoom =
-    urlRoom;
+  saveRoom(currentRoom);
 
-  saveRoom(
-    currentRoom
-  );
+  setup.style.display = "none";
 
-  setup.style.display =
-    "none";
+}else{
 
-}
+  const savedRoom = readSavedRoom();
 
-/* URL이 없다면 저장된 교실 */
+  if(savedRoom){
 
-else {
+    currentRoom = savedRoom;
 
-  const savedRoom =
-    readSavedRoom();
-
-
-  if (savedRoom) {
-
-    currentRoom =
-      savedRoom;
-
-    setup.style.display =
-      "none";
+    setup.style.display = "none";
 
   }
 
 }
 
 
-/* 버튼 */
+/* =====================================================
+   10. 수동 운영 상태
+===================================================== */
 
-document
-  .querySelectorAll(
-    ".room-btn"
-  )
-  .forEach(button => {
+const EMPTY_MANUAL = {
+  active:false,
+  paused:false,
+  offsetMs:0,
+  frozenMs:null
+};
 
-    button.addEventListener(
-      "click",
-      () => {
+let manual = {...EMPTY_MANUAL};
 
-        chooseRoom(
-          Number(
-            button.dataset.room
-          )
-        );
 
-      }
+function manualStorageKey(){
+
+  return (
+    "traditionalPlayManual:" +
+    EVENT_DATE + ":" + currentRoom
+  );
+
+}
+
+
+function loadManualState(){
+
+  manual = {...EMPTY_MANUAL};
+
+  if(!currentRoom || PREVIEW_ACTIVE){
+    return;
+  }
+
+  try{
+
+    const saved =
+      JSON.parse(
+        localStorage.getItem(manualStorageKey())
+      );
+
+    if(!saved){
+      return;
+    }
+
+    if(typeof saved.active === "boolean"){
+      manual.active = saved.active;
+    }
+
+    if(typeof saved.paused === "boolean"){
+      manual.paused = saved.paused;
+    }
+
+    if(Number.isFinite(saved.offsetMs)){
+      manual.offsetMs = saved.offsetMs;
+    }
+
+    if(Number.isFinite(saved.frozenMs)){
+      manual.frozenMs = saved.frozenMs;
+    }
+
+  }catch{}
+
+}
+
+
+function saveManualState(){
+
+  if(!currentRoom || PREVIEW_ACTIVE){
+    return;
+  }
+
+  try{
+
+    localStorage.setItem(
+      manualStorageKey(),
+      JSON.stringify(manual)
     );
 
-  });
+  }catch{}
+
+}
 
 
-/* ========================================================
-   9. 현재 행사 단계 판정
-======================================================== */
+function clearManualState(){
 
-function getPhase(now) {
+  manual = {...EMPTY_MANUAL};
 
-  /*
-    행사 시작 전
-  */
+  try{
 
-  if (
-    now < FIRST_START
-  ) {
+    localStorage.removeItem(manualStorageKey());
+
+  }catch{}
+
+}
+
+
+/* =====================================================
+   11. 현재 적용 시각
+===================================================== */
+
+function getNow(){
+
+  if(
+    manual.active &&
+    manual.paused &&
+    Number.isFinite(manual.frozenMs)
+  ){
+    return manual.frozenMs;
+  }
+
+  if(manual.active){
+    return baseNow() + manual.offsetMs;
+  }
+
+  return baseNow();
+}
+
+
+/* =====================================================
+   12. 현재 단계
+===================================================== */
+
+function getPhase(now){
+
+  if(now < FIRST_START){
 
     return {
       type:"waiting",
+      index:-1,
+      startMs:null,
       endMs:FIRST_START
     };
 
   }
 
+  for(const phase of PHASES){
 
-  /*
-    모든 구간은
-
-    시작 이상
-    종료 미만
-
-    [start, end)
-
-    방식으로 판정.
-
-    따라서
-
-    10:57:59 → 놀이
-    10:58:00 → 이동
-
-    경계가 겹치지 않음.
-  */
-
-  for (
-    const phase of PHASES
-  ) {
-
-    if (
-      now >= phase.startMs &&
-      now < phase.endMs
-    ) {
-
+    if(now >= phase.startMs && now < phase.endMs){
       return phase;
-
     }
 
   }
 
-
-  /*
-    행사 종료
-  */
-
-  if (
-    now >= LAST_END
-  ) {
-
-    return {
-      type:"finished"
-    };
-
-  }
-
-
-  /*
-    혹시 모를 비정상 구간
-  */
-
   return {
-    type:"unknown"
+    type:"finished",
+    index:PHASES.length,
+    startMs:LAST_END,
+    endMs:null
   };
 
 }
 
 
-/* ========================================================
-   10. 남은 시간 계산
-======================================================== */
+/* =====================================================
+   13. 시간 표시
+===================================================== */
 
-function getRemainingSeconds(
-  endMs,
-  now
-) {
+function getRemainingSeconds(endMs,now){
 
-  if (
-    !Number.isFinite(endMs)
-  ) {
+  if(!Number.isFinite(endMs)){
     return 0;
   }
 
-
   return Math.max(
     0,
-    Math.ceil(
-      (endMs - now) / 1000
-    )
+    Math.ceil((endMs - now) / 1000)
   );
 
 }
 
 
-function formatTimer(seconds) {
-
-  const min =
-    Math.floor(
-      seconds / 60
-    );
-
-  const sec =
-    seconds % 60;
-
+function formatTimer(seconds){
 
   return (
-    String(min).padStart(2,"0") +
+    String(Math.floor(seconds / 60)).padStart(2,"0") +
     ":" +
-    String(sec).padStart(2,"0")
+    String(seconds % 60).padStart(2,"0")
   );
 
 }
 
 
-/* ========================================================
-   11. 현재 실제 시각 표시
-======================================================== */
+function formatWait(seconds){
 
-function formatClock(ms) {
+  if(seconds < 3600){
+    return formatTimer(seconds);
+  }
+
+  const hour = Math.floor(seconds / 3600);
+  const min = Math.floor((seconds % 3600) / 60);
+
+  return hour + "시간 " + min + "분";
+}
+
+
+function formatClock(ms){
 
   return new Intl.DateTimeFormat(
     "ko-KR",
@@ -1213,738 +1321,930 @@ function formatClock(ms) {
       second:"2-digit",
       hourCycle:"h23"
     }
-  ).format(
-    new Date(ms)
-  );
-
+  ).format(new Date(ms));
 }
 
 
-/* ========================================================
-   12. 화면 초기화
-======================================================== */
+/* =====================================================
+   14. 알림음
+===================================================== */
 
-function clearWarning() {
+let audioCtx = null;
 
-  timer.classList.remove(
-    "warning",
-    "danger"
-  );
-
-  status.classList.remove(
-    "warning",
-    "danger"
-  );
-
-}
+let soundOn = false;
 
 
-/* ========================================================
-   13. 라운드 표시
-======================================================== */
+try{
 
-function renderSteps(
-  phase
-) {
+  soundOn =
+    localStorage.getItem("traditionalPlaySound") === "on";
 
-  steps.innerHTML =
-    "";
+}catch{}
 
 
-  for (
-    let round = 1;
-    round <= 4;
-    round++
-  ) {
+function unlockAudio(){
 
-    const item =
-      document.createElement(
-        "div"
-      );
+  try{
 
+    if(!audioCtx){
 
-    item.className =
-      "step";
+      const Ctx =
+        window.AudioContext || window.webkitAudioContext;
 
-
-    if (
-      phase.round
-    ) {
-
-      if (
-        round <
-        phase.round
-      ) {
-        item.classList.add(
-          "done"
-        );
+      if(!Ctx){
+        return;
       }
 
-
-      if (
-        round ===
-        phase.round
-      ) {
-        item.classList.add(
-          "active"
-        );
-      }
+      audioCtx = new Ctx();
 
     }
 
+    if(audioCtx.state === "suspended"){
+      audioCtx.resume();
+    }
 
-    if (
+  }catch{}
+
+}
+
+
+function beep(freq,duration,volume,delay){
+
+  if(!soundOn || !audioCtx){
+    return;
+  }
+
+  try{
+
+    const start =
+      audioCtx.currentTime + (delay || 0);
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = "sine";
+    osc.frequency.value = freq;
+
+    gain.gain.setValueAtTime(0.0001,start);
+
+    gain.gain.exponentialRampToValueAtTime(
+      volume,
+      start + 0.015
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      0.0001,
+      start + duration
+    );
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start(start);
+    osc.stop(start + duration + 0.03);
+
+  }catch{}
+
+}
+
+
+const firedCues = new Set();
+
+let lastPhaseIndex = null;
+
+
+function handleCues(phase,remaining){
+
+  if(!soundOn){
+    lastPhaseIndex = phase.index;
+    return;
+  }
+
+  if(manual.active && manual.paused){
+    return;
+  }
+
+  if(
+    lastPhaseIndex !== null &&
+    lastPhaseIndex !== phase.index
+  ){
+    beep(660,0.16,0.25);
+    beep(880,0.22,0.25,0.20);
+  }
+
+  lastPhaseIndex = phase.index;
+
+  if(
+    phase.type !== "play" &&
+    phase.type !== "move" &&
+    phase.type !== "tidy"
+  ){
+    return;
+  }
+
+  const cue60 = phase.index + ":60";
+  const cue10 = phase.index + ":10";
+
+  if(remaining === 60 && !firedCues.has(cue60)){
+    firedCues.add(cue60);
+    beep(760,0.18,0.2);
+  }
+
+  if(remaining === 10 && !firedCues.has(cue10)){
+    firedCues.add(cue10);
+    beep(980,0.14,0.25);
+    beep(980,0.14,0.25,0.18);
+  }
+
+}
+
+
+function updateSoundButton(){
+
+  soundBtn.textContent =
+    soundOn ? "🔕 알림음 끄기" : "🔔 알림음 켜기";
+
+}
+
+
+function setSound(on){
+
+  soundOn = on;
+
+  try{
+
+    localStorage.setItem(
+      "traditionalPlaySound",
+      on ? "on" : "off"
+    );
+
+  }catch{}
+
+  if(on){
+    unlockAudio();
+    beep(880,0.15,0.2);
+  }
+
+  updateSoundButton();
+}
+
+
+updateSoundButton();
+
+
+/* =====================================================
+   15. 화면 꺼짐 방지
+===================================================== */
+
+let wakeLock = null;
+
+
+async function requestWakeLock(){
+
+  try{
+
+    if(!("wakeLock" in navigator)){
+      return;
+    }
+
+    if(wakeLock){
+      return;
+    }
+
+    wakeLock =
+      await navigator.wakeLock.request("screen");
+
+    wakeLock.addEventListener(
+      "release",
+      () => { wakeLock = null; }
+    );
+
+  }catch{}
+
+}
+
+
+/* =====================================================
+   16. 단계 이동 / 시간 조작
+===================================================== */
+
+function setEffectiveTime(targetMs){
+
+  if(!Number.isFinite(targetMs)){
+    return;
+  }
+
+  manual.active = true;
+
+  if(manual.paused){
+    manual.frozenMs = targetMs;
+  }else{
+    manual.offsetMs = targetMs - baseNow();
+  }
+
+  saveManualState();
+
+  render();
+}
+
+
+function nextStage(){
+
+  const phase = getPhase(getNow());
+
+  if(phase.type === "waiting"){
+    setEffectiveTime(FIRST_START + 100);
+    return;
+  }
+
+  if(
+    phase.index >= 0 &&
+    phase.index < PHASES.length - 1
+  ){
+    setEffectiveTime(
+      PHASES[phase.index + 1].startMs + 100
+    );
+    return;
+  }
+
+  if(phase.index === PHASES.length - 1){
+    setEffectiveTime(LAST_END + 100);
+  }
+
+}
+
+
+function previousStage(){
+
+  const phase = getPhase(getNow());
+
+  if(phase.type === "finished"){
+    setEffectiveTime(
+      PHASES[PHASES.length - 1].startMs + 100
+    );
+    return;
+  }
+
+  if(phase.index > 0){
+    setEffectiveTime(
+      PHASES[phase.index - 1].startMs + 100
+    );
+    return;
+  }
+
+  if(phase.index === 0){
+    setEffectiveTime(FIRST_START - 1000);
+  }
+
+}
+
+
+function togglePause(){
+
+  /* 정지 → 재개 */
+
+  if(manual.active && manual.paused){
+
+    manual.offsetMs = manual.frozenMs - baseNow();
+    manual.paused = false;
+    manual.frozenMs = null;
+
+    saveManualState();
+    render();
+
+    return;
+  }
+
+  /* 현재 시점에서 정지 */
+
+  manual.active = true;
+  manual.paused = true;
+  manual.frozenMs = getNow();
+
+  saveManualState();
+  render();
+
+}
+
+
+/*
+  연장은 가상 시각을 뒤로 미는 방식이라
+  현재 단계 시작점보다 앞으로 가면
+  직전 라운드로 되돌아가버린다.
+  단계 시작 시각으로 막아둔다.
+*/
+
+function extendTime(ms){
+
+  const now = getNow();
+  const phase = getPhase(now);
+
+  let target = now - ms;
+
+  if(Number.isFinite(phase.startMs)){
+    target = Math.max(target,phase.startMs + 100);
+  }
+
+  setEffectiveTime(target);
+}
+
+
+function returnToAuto(){
+
+  clearManualState();
+
+  render();
+
+}
+
+
+/* =====================================================
+   17. 라운드 표시
+===================================================== */
+
+const stepNodes = [];
+
+for(let round = 1; round <= 4; round++){
+
+  const node = document.createElement("div");
+
+  node.className = "step";
+  node.textContent = round + "라운드";
+
+  stepsEl.appendChild(node);
+  stepNodes.push(node);
+
+}
+
+
+function renderSteps(phase){
+
+  for(let round = 1; round <= 4; round++){
+
+    const node = stepNodes[round - 1];
+
+    let done = false;
+    let active = false;
+
+    if(phase.round){
+      done = round < phase.round;
+      active = round === phase.round;
+    }
+
+    if(
       phase.type === "tidy" ||
       phase.type === "swap" ||
       phase.type === "finished"
-    ) {
-
-      item.classList.add(
-        "done"
-      );
-
+    ){
+      done = true;
     }
 
-
-    item.innerHTML =
-      "<small>" +
-      round +
-      "번째</small>" +
-      round +
-      "라운드";
-
-
-    steps.appendChild(
-      item
-    );
+    node.classList.toggle("done",done);
+    node.classList.toggle("active",active);
 
   }
 
 }
 
 
-/* ========================================================
-   14. 메인 렌더
-======================================================== */
+/* =====================================================
+   18. 운영 패널 상태
+===================================================== */
 
-function render() {
+function renderAdmin(now){
 
-  if (!currentRoom)
-    return;
+  const paused = manual.active && manual.paused;
 
+  if(manual.active){
 
-  const room =
-    ROOMS[currentRoom];
+    manualBadge.textContent =
+      paused ? "⏸ 일시정지 중" : "⚠️ 수동 운영 중";
 
+    manualBadge.classList.add("show");
+    manualWarning.classList.add("show");
 
-  const now =
-    getNow();
+  }else{
 
+    manualBadge.classList.remove("show");
+    manualWarning.classList.remove("show");
 
-  const phase =
-    getPhase(now);
+  }
 
+  setText(
+    pauseBtn,
+    paused ? "▶ 다시 시작" : "⏸ 일시정지"
+  );
 
-  roomBadge.textContent =
-    "🏫 " +
-    room.classroom;
-
-
-  clockBadge.textContent =
-    "🕐 " +
-    formatClock(
-      Date.now()
-    );
-
-
-  if (
-    Number.isFinite(
-      PREVIEW_MS
+  setHTML(
+    adminState,
+    (
+      PREVIEW_ACTIVE
+        ? "리허설 기준 시각 : "
+        : "실제 PC 시각 : "
+    ) +
+    formatClock(baseNow()) + "<br>" +
+    "화면 적용 시각 : " + formatClock(now) + "<br>" +
+    "운영 상태 : " +
+    (
+      manual.active
+        ? (paused ? "수동 · 일시정지" : "수동 운영")
+        : "자동 운영"
     )
-  ) {
-
-    previewBadge.style.display =
-      "inline-flex";
-
-  }
-
-
-  clearWarning();
-
-
-  /* =========================
-     시작 전
-  ========================= */
-
-  if (
-    phase.type === "waiting"
-  ) {
-
-    const remaining =
-      getRemainingSeconds(
-        phase.endMs,
-        now
-      );
-
-
-    sessionBadge.textContent =
-      "행사 시작 전";
-
-
-    status.textContent =
-      "🌿 놀이마당 준비";
-
-
-    roomLabel.textContent =
-      room.classroom +
-      " 놀이마당";
-
-
-    playName.textContent =
-      room.emoji +
-      " " +
-      room.name;
-
-
-    timerLabel.textContent =
-      "3교시 시작까지";
-
-
-    timer.textContent =
-      formatTimer(
-        remaining
-      );
-
-
-    guide.innerHTML =
-      "첫 번째 새로가족을 맞이할 준비를 해주세요 😊";
-
-
-    renderSteps(
-      phase
-    );
-
-
-    return;
-  }
-
-
-  /* =========================
-     놀이 중
-  ========================= */
-
-  if (
-    phase.type === "play"
-  ) {
-
-    const remaining =
-      getRemainingSeconds(
-        phase.endMs,
-        now
-      );
-
-
-    sessionBadge.textContent =
-      phase.session +
-      "교시";
-
-
-    status.textContent =
-      "🎉 " +
-      phase.round +
-      " / 4 라운드 · 놀이 중";
-
-
-    roomLabel.textContent =
-      room.classroom +
-      " 놀이마당";
-
-
-    playName.textContent =
-      room.emoji +
-      " " +
-      room.name;
-
-
-    timerLabel.textContent =
-      "남은 놀이 시간";
-
-
-    timer.textContent =
-      formatTimer(
-        remaining
-      );
-
-
-    /*
-      마지막 10초
-    */
-
-    if (
-      remaining <= 10
-    ) {
-
-      status.textContent =
-        "🔔 마지막 10초!";
-
-
-      timer.classList.add(
-        "danger"
-      );
-
-
-      status.classList.add(
-        "danger"
-      );
-
-
-      guide.innerHTML =
-        "<strong>놀이를 마무리해주세요!</strong>";
-
-    }
-
-
-    /*
-      마지막 1분
-    */
-
-    else if (
-      remaining <= 60
-    ) {
-
-      status.textContent =
-        "⏰ 1분 남았습니다";
-
-
-      timer.classList.add(
-        "warning"
-      );
-
-
-      status.classList.add(
-        "warning"
-      );
-
-
-      guide.innerHTML =
-        "<strong>1분 남았습니다.</strong> 놀잇감을 천천히 정리해주세요.";
-
-    }
-
-
-    /*
-      일반 놀이 시간
-    */
-
-    else {
-
-      if (
-        phase.round < 4
-      ) {
-
-        const next =
-          ROOMS[
-            room.nextRoom
-          ];
-
-
-        guide.innerHTML =
-          "즐겁게 놀이해주세요 😊" +
-          "<br>" +
-          "다음 이동 → <strong>" +
-          next.classroom +
-          " " +
-          next.name +
-          "</strong>";
-
-      }
-
-
-      else if (
-        phase.session === 3
-      ) {
-
-        guide.innerHTML =
-          "마지막 교실 놀이입니다 😊" +
-          "<br>" +
-          "놀이가 끝나면 <strong>강당 이동 준비</strong>를 합니다.";
-
-      }
-
-
-      else {
-
-        guide.innerHTML =
-          "마지막 놀이입니다 😊" +
-          "<br>" +
-          "놀이가 끝나면 모든 체험이 완료됩니다.";
-
-      }
-
-    }
-
-
-    renderSteps(
-      phase
-    );
-
-
-    return;
-  }
-
-
-  /* =========================
-     2분 이동 시간
-  ========================= */
-
-  if (
-    phase.type === "move"
-  ) {
-
-    const remaining =
-      getRemainingSeconds(
-        phase.endMs,
-        now
-      );
-
-
-    const next =
-      ROOMS[
-        room.nextRoom
-      ];
-
-
-    sessionBadge.textContent =
-      phase.session +
-      "교시";
-
-
-    status.textContent =
-      "🚶 이동 시간";
-
-
-    roomLabel.textContent =
-      "다음 놀이마당";
-
-
-    playName.textContent =
-      next.emoji +
-      " " +
-      next.name;
-
-
-    timerLabel.textContent =
-      "이동 시간";
-
-
-    timer.textContent =
-      formatTimer(
-        remaining
-      );
-
-
-    guide.innerHTML =
-      "현재 새로가족은 <strong>" +
-      next.classroom +
-      "</strong>으로 이동해주세요." +
-      "<br>" +
-      room.classroom +
-      "에서는 다음 새로가족을 맞이할 준비를 해주세요.";
-
-
-    renderSteps(
-      phase
-    );
-
-
-    return;
-  }
-
-
-  /* =========================
-     11:28~11:30
-  ========================= */
-
-  if (
-    phase.type === "tidy"
-  ) {
-
-    const remaining =
-      getRemainingSeconds(
-        phase.endMs,
-        now
-      );
-
-
-    sessionBadge.textContent =
-      "3교시 마무리";
-
-
-    status.textContent =
-      "🧹 교실 놀이마당 정리";
-
-
-    roomLabel.textContent =
-      "3교시 교실 놀이 완료";
-
-
-    playName.textContent =
-      "놀이 정리";
-
-
-    timerLabel.textContent =
-      "교대 이동까지";
-
-
-    timer.textContent =
-      formatTimer(
-        remaining
-      );
-
-
-    guide.innerHTML =
-      "놀잇감을 정리하고 이동할 준비를 해주세요.";
-
-
-    renderSteps(
-      phase
-    );
-
-
-    return;
-  }
-
-
-  /* =========================
-     11:30~11:35 교대
-  ========================= */
-
-  if (
-    phase.type === "swap"
-  ) {
-
-    const remaining =
-      getRemainingSeconds(
-        phase.endMs,
-        now
-      );
-
-
-    sessionBadge.textContent =
-      "교대 이동";
-
-
-    status.textContent =
-      "🐦 새로가족 교대 이동";
-
-
-    roomLabel.textContent =
-      "3교시 ↔ 4교시 교대";
-
-
-    playName.textContent =
-      "이동 시간";
-
-
-    timerLabel.textContent =
-      "4교시 시작까지";
-
-
-    timer.textContent =
-      formatTimer(
-        remaining
-      );
-
-
-    guide.innerHTML =
-      "3교시 교실 놀이팀은 <strong>강당으로 이동</strong>합니다." +
-      "<br>" +
-      "4교시 교실 놀이팀은 <strong>" +
-      room.classroom +
-      " " +
-      room.name +
-      "</strong>으로 이동해주세요.";
-
-
-    renderSteps(
-      phase
-    );
-
-
-    return;
-  }
-
-
-  /* =========================
-     행사 종료
-  ========================= */
-
-  if (
-    phase.type === "finished"
-  ) {
-
-    sessionBadge.textContent =
-      "행사 완료";
-
-
-    status.textContent =
-      "🎉 전래 놀이 한마당 완료";
-
-
-    roomLabel.textContent =
-      "수고하셨습니다!";
-
-
-    playName.textContent =
-      "모든 체험 완료";
-
-
-    timerLabel.textContent =
-      "";
-
-
-    timer.textContent =
-      "✓";
-
-
-    guide.innerHTML =
-      "새로가족 모두 수고했습니다 😊" +
-      "<br>" +
-      "<strong>각자 교실로 이동해주세요.</strong>";
-
-
-    renderSteps(
-      phase
-    );
-
-
-    return;
-  }
-
-
-  /* 혹시 모를 비정상 상황 */
-
-  status.textContent =
-    "시간 정보를 확인해주세요.";
+  );
 
 }
 
 
-/* ========================================================
-   15. 전체화면
-======================================================== */
+/* =====================================================
+   19. 메인 화면
+===================================================== */
 
-document
-  .getElementById(
-    "fullscreenBtn"
-  )
-  .addEventListener(
-    "click",
-    async () => {
+function render(){
 
-      try {
+  setText(setupClock,formatClock(baseNow()));
 
-        if (
-          !document.fullscreenElement
-        ) {
+  if(!currentRoom){
+    return;
+  }
 
-          await document
-            .documentElement
-            .requestFullscreen();
+  const room = ROOMS[currentRoom];
+  const now = getNow();
+  const phase = getPhase(now);
+  const paused = manual.active && manual.paused;
+  const remaining = getRemainingSeconds(phase.endMs,now);
 
-        }
+  handleCues(phase,remaining);
 
-        else {
+  setText(roomBadge,"🏫 " + room.classroom);
+  setText(clockBadge,"🕐 " + formatClock(baseNow()));
 
-          await document
-            .exitFullscreen();
+  let statusText = "";
+  let statusClass = "";
+  let timerClass = "";
+  let showImage = true;
 
-        }
+
+  /* -------------------
+     행사 시작 전
+  ------------------- */
+
+  if(phase.type === "waiting"){
+
+    setText(partBadge,"행사 시작 전");
+
+    statusText = "🌿 놀이마당 준비";
+
+    setImage(room.img,room.name);
+    setText(roomLabel,room.classroom + " 놀이마당");
+    setText(playName,room.name);
+
+    setText(timerLabel,"1부 시작까지");
+    setText(timerEl,formatWait(remaining));
+
+    if(remaining >= 3600){
+      timerClass = "wait";
+    }
+
+    setHTML(
+      guide,
+      "첫 번째 새로가족을 맞이할 준비를 해주세요 😊"
+    );
+
+  }
+
+
+  /* -------------------
+     놀이
+  ------------------- */
+
+  else if(phase.type === "play"){
+
+    setText(partBadge,phase.part + "부");
+
+    setImage(room.img,room.name);
+    setText(roomLabel,room.classroom + " 놀이마당");
+    setText(playName,room.name);
+
+    setText(timerLabel,"남은 놀이 시간");
+    setText(timerEl,formatTimer(remaining));
+
+    const head =
+      phase.part + "부 · " + phase.round + "라운드";
+
+    if(remaining <= 10){
+
+      statusText = "🔔 " + head + " · 마지막 10초!";
+      statusClass = "danger";
+      timerClass = "danger";
+
+      setHTML(
+        guide,
+        "<strong>놀이를 마무리해주세요!</strong>"
+      );
+
+    }
+
+    else if(remaining <= 60){
+
+      statusText = "⏰ " + head + " · 1분 남음";
+      statusClass = "warning";
+      timerClass = "warning";
+
+      setHTML(
+        guide,
+        "<strong>1분 남았습니다.</strong> 놀잇감을 천천히 정리해주세요."
+      );
+
+    }
+
+    else{
+
+      statusText = "🎉 " + head + " / 4";
+
+      if(phase.round < 4){
+
+        const next = ROOMS[room.nextRoom];
+
+        setHTML(
+          guide,
+          "즐겁게 놀이해주세요 😊<br>다음 이동 → <strong>" +
+          next.classroom + " " + next.name + "</strong>"
+        );
 
       }
 
-      catch {
-        /* 전체화면 지원 안 해도 진행에는 영향 없음 */
+      else if(phase.part === 1){
+
+        setHTML(
+          guide,
+          "1부 마지막 교실 놀이입니다 😊<br>" +
+          "놀이가 끝나면 <strong>강당 이동 준비</strong>를 합니다."
+        );
+
+      }
+
+      else{
+
+        setHTML(
+          guide,
+          "2부 마지막 놀이입니다 😊<br>" +
+          "놀이가 끝나면 모든 체험이 완료됩니다."
+        );
+
       }
 
     }
-  );
+
+  }
 
 
-/* ========================================================
-   16. 교실 변경
-======================================================== */
+  /* -------------------
+     이동
+  ------------------- */
 
-document
-  .getElementById(
-    "changeRoomBtn"
-  )
-  .addEventListener(
-    "click",
-    () => {
+  else if(phase.type === "move"){
 
-      setup.style.display =
-        "flex";
+    const next = ROOMS[room.nextRoom];
 
+    setText(partBadge,phase.part + "부");
+
+    statusText =
+      "🚶 " + phase.part + "부 · " +
+      phase.round + "라운드 이동";
+
+    setImage(next.img,next.name);
+    setText(roomLabel,"다음 놀이마당 · " + next.classroom);
+    setText(playName,next.name);
+
+    setText(timerLabel,"이동 시간");
+    setText(timerEl,formatTimer(remaining));
+
+    if(remaining <= 15){
+      statusClass = "warning";
+      timerClass = "warning";
     }
+
+    setHTML(
+      guide,
+      "현재 새로가족은 <strong>" +
+      josaRo(next.classroom) +
+      "</strong> 이동해주세요.<br>" +
+      room.classroom +
+      "에서는 다음 새로가족을 맞이할 준비를 해주세요."
+    );
+
+  }
+
+
+  /* -------------------
+     1부 정리
+  ------------------- */
+
+  else if(phase.type === "tidy"){
+
+    setText(partBadge,"1부 마무리");
+
+    statusText = "🧹 1부 교실 놀이 완료";
+
+    setImage(room.img,room.name);
+    setText(roomLabel,"1부 마무리");
+    setText(playName,"놀이 정리");
+
+    setText(timerLabel,"교대 이동까지");
+    setText(timerEl,formatTimer(remaining));
+
+    setHTML(
+      guide,
+      "놀잇감을 정리하고 <strong>강당으로 이동할 준비</strong>를 해주세요."
+    );
+
+  }
+
+
+  /* -------------------
+     교대
+  ------------------- */
+
+  else if(phase.type === "swap"){
+
+    setText(partBadge,"1부 ↔ 2부");
+
+    statusText = "🐦 새로가족 교대 이동";
+
+    setImage(room.img,room.name);
+    setText(roomLabel,"1부 ↔ 2부 교대");
+    setText(playName,"이동 시간");
+
+    setText(timerLabel,"2부 시작까지");
+    setText(timerEl,formatTimer(remaining));
+
+    setHTML(
+      guide,
+      "1부 교실 놀이팀은 <strong>강당으로 이동</strong>합니다.<br>" +
+      "2부 교실 놀이팀은 <strong>" +
+      josaRo(room.classroom + " " + room.name) +
+      "</strong> 이동해주세요."
+    );
+
+  }
+
+
+  /* -------------------
+     완료
+  ------------------- */
+
+  else{
+
+    setText(partBadge,"행사 완료");
+
+    statusText = "🎉 전래 놀이 한마당 완료";
+
+    showImage = false;
+
+    setText(roomLabel,"수고하셨습니다!");
+    setText(playName,"모든 체험 완료");
+
+    setText(timerLabel,"");
+    setText(timerEl,"✓");
+
+    setHTML(
+      guide,
+      "새로가족 모두 수고했습니다 😊<br>" +
+      "<strong>각자 교실로 이동해주세요.</strong>"
+    );
+
+  }
+
+
+  /* 정지 중에는 경고 연출을 끈다 */
+
+  if(paused){
+    statusText = "⏸ 일시정지 중 — " + statusText;
+    statusClass = "paused";
+    timerClass = "paused";
+  }
+
+  setText(statusBar,statusText);
+
+  setClass(
+    statusBar,
+    "status" + (statusClass ? " " + statusClass : "")
   );
 
+  setClass(
+    timerEl,
+    "timer" + (timerClass ? " " + timerClass : "")
+  );
 
-/* ========================================================
-   17. 가장 중요한 타이머 동기화
-======================================================== */
+  setClass(
+    identity,
+    "identity" + (showImage ? "" : " no-image")
+  );
 
-/*
-  250ms마다 다시 계산.
+  renderSteps(phase);
 
-  setInterval 자체가 늦어져도
-  Date.now() 기준으로 현재 단계와
-  남은 시간을 다시 계산하므로
+  renderAdmin(now);
 
-  타이머가 누적해서 밀리지 않음.
-*/
+}
 
-setInterval(
-  render,
-  250
+
+/* =====================================================
+   20. 운영 패널 — 한 번 눌러 열기
+===================================================== */
+
+let panelTimer = null;
+
+
+function touchPanel(){
+
+  clearTimeout(panelTimer);
+
+  panelTimer = setTimeout(closePanel,30000);
+
+}
+
+
+function openPanel(){
+
+  adminPanel.classList.add("show");
+  adminOpenBtn.classList.add("open");
+
+  unlockAudio();
+
+  touchPanel();
+}
+
+
+function closePanel(){
+
+  clearTimeout(panelTimer);
+
+  adminPanel.classList.remove("show");
+  adminOpenBtn.classList.remove("open");
+
+}
+
+
+adminOpenBtn.addEventListener(
+  "click",
+  () => {
+
+    if(adminPanel.classList.contains("show")){
+      closePanel();
+    }else{
+      openPanel();
+    }
+
+  }
 );
 
 
+adminPanel.addEventListener("pointerdown",touchPanel);
+
+
+/* 화면 아무 곳이나 누르면 패널이 닫힌다 */
+
+document.addEventListener(
+  "pointerdown",
+  event => {
+
+    if(!adminPanel.classList.contains("show")){
+      return;
+    }
+
+    if(
+      adminPanel.contains(event.target) ||
+      adminOpenBtn.contains(event.target)
+    ){
+      return;
+    }
+
+    closePanel();
+
+  }
+);
+
+
+/* =====================================================
+   21. 운영 버튼
+===================================================== */
+
+$("panelCloseBtn").addEventListener("click",closePanel);
+
+pauseBtn.addEventListener("click",togglePause);
+
+$("prevBtn").addEventListener("click",previousStage);
+
+$("nextBtn").addEventListener("click",nextStage);
+
+$("plus30Btn").addEventListener(
+  "click",
+  () => extendTime(30 * 1000)
+);
+
+$("plus60Btn").addEventListener(
+  "click",
+  () => extendTime(60 * 1000)
+);
+
+$("autoBtn").addEventListener("click",returnToAuto);
+
+soundBtn.addEventListener(
+  "click",
+  () => setSound(!soundOn)
+);
+
+$("changeRoomBtn").addEventListener(
+  "click",
+  () => {
+    closePanel();
+    setup.style.display = "flex";
+  }
+);
+
+
+/* =====================================================
+   22. 전체화면
+===================================================== */
+
+async function toggleFullscreen(){
+
+  try{
+
+    if(!document.fullscreenElement){
+      await document.documentElement.requestFullscreen();
+    }else{
+      await document.exitFullscreen();
+    }
+
+  }catch{}
+
+}
+
+
+fullscreenBtn.addEventListener("click",toggleFullscreen);
+
+$("setupFullscreenBtn").addEventListener("click",toggleFullscreen);
+
+
+document.addEventListener(
+  "fullscreenchange",
+  () => {
+
+    fullscreenBtn.textContent =
+      document.fullscreenElement
+        ? "⛶ 전체화면 해제"
+        : "⛶ 전체화면";
+
+  }
+);
+
+
+/* =====================================================
+   23. 동기화
+===================================================== */
+
 /*
-  다른 탭에서 돌아왔을 때
-  즉시 현재 시간으로 복귀
+  숫자를 1초씩 빼지 않는다.
+  항상 현재 시각과 종료 절대시각의 차이를
+  새로 계산하므로 백그라운드에서도
+  오차가 누적되지 않는다.
 */
+
+setInterval(render,250);
+
 
 document.addEventListener(
   "visibilitychange",
   () => {
 
-    if (
-      document.visibilityState ===
-      "visible"
-    ) {
-
+    if(document.visibilityState === "visible"){
+      requestWakeLock();
       render();
-
     }
 
   }
 );
 
 
-/*
-  창 포커스 복귀 시 즉시 재계산
-*/
-
 window.addEventListener(
   "focus",
-  render
+  () => {
+    requestWakeLock();
+    render();
+  }
 );
 
 
-/*
-  최초 렌더
-*/
+/* =====================================================
+   24. 초기화
+===================================================== */
+
+if(currentRoom){
+  loadManualState();
+}
+
+requestWakeLock();
 
 render();
 
