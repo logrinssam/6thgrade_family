@@ -1415,28 +1415,21 @@ function unlockAudio(){
 }
 
 
-function beep(freq,duration,volume,delay){
-
-  if(!soundOn || !audioCtx){
-    return;
-  }
+function tone(freq,start,duration,volume,type){
 
   try{
-
-    const start =
-      audioCtx.currentTime + (delay || 0);
 
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
 
-    osc.type = "sine";
+    osc.type = type || "sine";
     osc.frequency.value = freq;
 
     gain.gain.setValueAtTime(0.0001,start);
 
     gain.gain.exponentialRampToValueAtTime(
       volume,
-      start + 0.015
+      start + 0.012
     );
 
     gain.gain.exponentialRampToValueAtTime(
@@ -1448,9 +1441,72 @@ function beep(freq,duration,volume,delay){
     gain.connect(audioCtx.destination);
 
     osc.start(start);
-    osc.stop(start + duration + 0.03);
+    osc.stop(start + duration + 0.05);
 
   }catch{}
+
+}
+
+
+function beep(freq,duration,volume,delay){
+
+  if(!soundOn || !audioCtx){
+    return;
+  }
+
+  tone(
+    freq,
+    audioCtx.currentTime + (delay || 0),
+    duration,
+    volume
+  );
+
+}
+
+
+/*
+  단계가 끝날 때 울리는 종소리.
+  교실이 시끄러워도 들리도록
+  3음 상행 + 옥타브 배음으로 크고 길게.
+*/
+
+function endChime(){
+
+  if(!soundOn || !audioCtx){
+    return;
+  }
+
+  const now = audioCtx.currentTime;
+
+  const notes = [
+    {freq:784.0,  at:0.00, dur:1.10},
+    {freq:987.8,  at:0.24, dur:1.10},
+    {freq:1174.7, at:0.48, dur:2.10}
+  ];
+
+  notes.forEach(note => {
+
+    /* 본음 */
+
+    tone(
+      note.freq,
+      now + note.at,
+      note.dur,
+      0.55,
+      "triangle"
+    );
+
+    /* 배음 — 멀리서도 또렷하게 */
+
+    tone(
+      note.freq * 2,
+      now + note.at,
+      note.dur * 0.55,
+      0.16,
+      "sine"
+    );
+
+  });
 
 }
 
@@ -1475,8 +1531,7 @@ function handleCues(phase,remaining){
     lastPhaseIndex !== null &&
     lastPhaseIndex !== phase.index
   ){
-    beep(660,0.16,0.25);
-    beep(880,0.22,0.25,0.20);
+    endChime();
   }
 
   lastPhaseIndex = phase.index;
@@ -1494,13 +1549,13 @@ function handleCues(phase,remaining){
 
   if(remaining === 60 && !firedCues.has(cue60)){
     firedCues.add(cue60);
-    beep(760,0.18,0.2);
+    beep(760,0.28,0.32);
   }
 
   if(remaining === 10 && !firedCues.has(cue10)){
     firedCues.add(cue10);
-    beep(980,0.14,0.25);
-    beep(980,0.14,0.25,0.18);
+    beep(980,0.20,0.40);
+    beep(980,0.20,0.40,0.24);
   }
 
 }
@@ -1529,7 +1584,7 @@ function setSound(on){
 
   if(on){
     unlockAudio();
-    beep(880,0.15,0.2);
+    setTimeout(endChime,60);
   }
 
   updateSoundButton();
