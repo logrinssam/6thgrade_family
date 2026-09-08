@@ -215,6 +215,13 @@ img{
   font-weight:800;
 }
 
+#roomBadge{
+  border-color:#4a3327;
+  background:#4a3327;
+  color:#fff;
+  font-size:16px;
+}
+
 #partBadge{background:#fff1b8;}
 
 #manualBadge,
@@ -274,17 +281,46 @@ img{
   gap:22px;
 }
 
-.identity .tile{
+.identity .main-tile{
   flex:none;
   width:178px;
   height:158px;
 }
 
+.identity .from-tile,
+.identity .move-arrow{display:none;}
+
+.identity.moving .from-tile{
+  display:grid;
+  flex:none;
+  width:112px;
+  height:100px;
+  border-radius:16px;
+  opacity:.42;
+}
+
+.identity.moving .move-arrow{
+  display:block;
+  color:#c79a1e;
+  font-size:40px;
+  font-weight:900;
+  line-height:1;
+}
+
 .identity-text{text-align:left;}
 
-.identity.no-image .tile{display:none;}
+.identity.no-image .main-tile{display:none;}
 
 .identity.no-image .identity-text{text-align:center;}
+
+.play-sub{
+  margin-top:2px;
+  color:#8a6f5c;
+  font-size:clamp(20px,2.6vw,28px);
+  font-weight:800;
+}
+
+.play-sub:empty{display:none;}
 
 .room-label{
   color:var(--light-brown);
@@ -524,7 +560,9 @@ img{
 @media(max-width:820px){
   .identity{flex-direction:column;gap:14px;}
   .identity-text{text-align:center;}
-  .identity .tile{width:150px;height:132px;}
+  .identity .main-tile{width:150px;height:132px;}
+  .identity.moving .from-tile,
+  .identity.moving .move-arrow{display:none;}
 }
 
 @media(max-width:650px){
@@ -590,13 +628,20 @@ img{
 
       <div class="identity" id="identity">
 
-        <div class="tile">
+        <div class="tile from-tile">
+          <img id="fromImage" src="" alt="">
+        </div>
+
+        <div class="move-arrow">➜</div>
+
+        <div class="tile main-tile">
           <img id="playImage" src="" alt="">
         </div>
 
         <div class="identity-text">
           <div class="room-label" id="roomLabel"></div>
           <div class="play-name" id="playName"></div>
+          <div class="play-sub" id="playSub"></div>
         </div>
 
       </div>
@@ -783,8 +828,10 @@ const previewBadge  = $("previewBadge");
 const statusBar     = $("status");
 const identity      = $("identity");
 const playImage     = $("playImage");
+const fromImage     = $("fromImage");
 const roomLabel     = $("roomLabel");
 const playName      = $("playName");
+const playSub       = $("playSub");
 const timerLabel    = $("timerLabel");
 const timerEl       = $("timer");
 const guide         = $("guide");
@@ -829,12 +876,12 @@ function setClass(el,value){
 }
 
 
-function setImage(src,alt){
+function setImage(el,src,alt){
 
-  if(playImage.__src !== src){
-    playImage.__src = src;
-    playImage.src = src;
-    playImage.alt = alt;
+  if(el.__src !== src){
+    el.__src = src;
+    el.src = src;
+    el.alt = alt;
   }
 
 }
@@ -1775,13 +1822,14 @@ function render(){
 
   handleCues(phase,remaining);
 
-  setText(roomBadge,"🏫 " + room.classroom);
+  setText(roomBadge,"🏫 이 교실 · " + room.classroom);
   setText(clockBadge,"🕐 " + formatClock(baseNow()));
 
   let statusText = "";
   let statusClass = "";
   let timerClass = "";
   let showImage = true;
+  let moving = false;
 
 
   /* -------------------
@@ -1794,9 +1842,10 @@ function render(){
 
     statusText = "🌿 놀이마당 준비";
 
-    setImage(room.img,room.name);
+    setImage(playImage,room.img,room.name);
     setText(roomLabel,room.classroom + " 놀이마당");
     setText(playName,room.name);
+    setText(playSub,"");
 
     setText(timerLabel,"1부 시작까지");
     setText(timerEl,formatWait(remaining));
@@ -1821,9 +1870,10 @@ function render(){
 
     setText(partBadge,phase.part + "부");
 
-    setImage(room.img,room.name);
+    setImage(playImage,room.img,room.name);
     setText(roomLabel,room.classroom + " 놀이마당");
     setText(playName,room.name);
+    setText(playSub,"");
 
     setText(timerLabel,"남은 놀이 시간");
     setText(timerEl,formatTimer(remaining));
@@ -1912,9 +1962,14 @@ function render(){
       "🚶 " + phase.part + "부 · " +
       phase.round + "라운드 이동";
 
-    setImage(next.img,next.name);
-    setText(roomLabel,"다음 놀이마당 · " + next.classroom);
-    setText(playName,next.name);
+    moving = true;
+
+    setImage(fromImage,room.img,room.name);
+    setImage(playImage,next.img,next.name);
+
+    setText(roomLabel,"이동할 교실");
+    setText(playName,next.classroom);
+    setText(playSub,next.name);
 
     setText(timerLabel,"이동 시간");
     setText(timerEl,formatTimer(remaining));
@@ -1946,9 +2001,10 @@ function render(){
 
     statusText = "🧹 1부 교실 놀이 완료";
 
-    setImage(room.img,room.name);
+    setImage(playImage,room.img,room.name);
     setText(roomLabel,"1부 마무리");
     setText(playName,"놀이 정리");
+    setText(playSub,"");
 
     setText(timerLabel,"교대 이동까지");
     setText(timerEl,formatTimer(remaining));
@@ -1971,9 +2027,10 @@ function render(){
 
     statusText = "🐦 세로가족 교대 이동";
 
-    setImage(room.img,room.name);
+    setImage(playImage,room.img,room.name);
     setText(roomLabel,"1부 ↔ 2부 교대");
     setText(playName,"이동 시간");
+    setText(playSub,"");
 
     setText(timerLabel,"2부 시작까지");
     setText(timerEl,formatTimer(remaining));
@@ -2003,6 +2060,7 @@ function render(){
 
     setText(roomLabel,"수고하셨습니다!");
     setText(playName,"모든 체험 완료");
+    setText(playSub,"");
 
     setText(timerLabel,"");
     setText(timerEl,"✓");
@@ -2038,7 +2096,9 @@ function render(){
 
   setClass(
     identity,
-    "identity" + (showImage ? "" : " no-image")
+    "identity" +
+    (showImage ? "" : " no-image") +
+    (moving ? " moving" : "")
   );
 
   renderSteps(phase);
