@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>부산게이미피케이션 교육연구회</title>
+<style>
+/* ===== 티스토리 프로필 카드형 CSS ===== */
+body {
+  margin: 0;
+  background: #f7fafa;
+}
+
+.member-page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 28px 16px 64px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.member-page * {
+  box-sizing: border-box;
+}
+
+/* 그룹명은 화면에 보이지 않게 하고, 순서만 나눕니다. */
+.member-group {
+  margin: 0 auto 44px;
+}
+
+.member-group:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== 카드 그리드 ===== */
+.member-grid {
+  display: grid !important;
+  align-items: stretch;
+  width: 100%;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  gap: 34px 26px;
+}
+
+/* 회장/부회장: 한 줄 2명 */
+.member-grid.grid-lead {
+  max-width: 760px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* 나머지: 넓은 화면 3명, 좁은 화면 2명 */
+.member-grid.grid-three {
+  max-width: 1080px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* ===== 개별 카드 ===== */
+.member-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid #e4eeee;
+  border-radius: 20px;
+  padding: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07);
+}
+
+/* ===== 사진 ===== */
+.member-img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  margin: 0 0 16px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #f4f7f7;
+}
+
+.member-img img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  object-fit: cover;
+  object-position: center top;
+  border: 0 !important;
+}
+
+/* ===== 이름 ===== */
+.member-name {
+  margin: 0 0 14px !important;
+  padding: 0 !important;
+  font-size: 20px !important;
+  line-height: 1.35 !important;
+  font-weight: 800 !important;
+  color: #2f837b !important;
+  text-align: center !important;
+  letter-spacing: -0.04em;
+  word-break: keep-all;
+}
+
+/* ===== 경력 ===== */
+.member-desc {
+  flex: 1;
+  margin: 0 0 18px !important;
+  padding-left: 18px !important;
+  list-style-type: disc !important;
+  list-style-position: outside !important;
+  color: #222222;
+  font-size: 13.2px !important;
+  line-height: 1.55 !important;
+  letter-spacing: -0.04em;
+  word-break: keep-all;
+}
+
+.member-desc li {
+  margin: 0 0 5px !important;
+  padding: 0 !important;
+}
+
+/* ===== 버튼 ===== */
+.member-btn {
+  display: block !important;
+  width: 100%;
+  margin-top: auto;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #2f837b;
+  color: #ffffff !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.32;
+  letter-spacing: -0.03em;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+.member-btn .btn-name,
+.member-btn .btn-action {
+  display: block;
+  white-space: nowrap;
+}
+
+.member-btn .btn-action {
+  margin-top: 2px;
+}
+
+.member-btn:hover {
+  background: #236a64;
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+.member-btn.disabled {
+  background: #a8b9b7;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ===== 태블릿: 한 줄 2명 ===== */
+@media (max-width: 980px) {
+  .member-page {
+    padding: 22px 14px 56px;
+  }
+
+  .member-grid.grid-three {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px 22px;
+  }
+}
+
+/* ===== 모바일: 한 줄 1명 ===== */
+@media (max-width: 640px) {
+  .member-page {
+    padding: 14px 8px 44px;
+  }
+
+  .member-grid.grid-lead,
+  .member-grid.grid-three {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .member-group {
+    margin-bottom: 38px;
+  }
+
+  .member-card {
+    border-radius: 16px;
+    padding: 15px;
+  }
+
+  .member-img {
+    border-radius: 13px;
+  }
+
+  .member-name {
+    font-size: 18px !important;
+  }
+
+  .member-desc {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+  }
+
+  .member-btn {
+    font-size: 13.5px;
+    padding: 10px 12px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="member-page">
+<div class="member-group">
+<div class="member-grid grid-lead">
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FMKvct%2FdJMcaadzr0B%2FAAAAAAAAAAAAAAAAAAAAAGfBaoVarF7pobkWUmPAj85_Cb8NpMn7OS5-DTGrKY1B%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DUV69ZFeXTeZe3oOU3wmu0Qhgl7Y%253D" alt="조하나 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">회장 조하나 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2022 개정교육과정 과학 5~6학년 교과서 저자</li>
+<li>2025 부산교육대학교 수학교육과 학부 강사</li>
+<li>2023~2026 부산광역시영재원 과학영재 강사</li>
+<li>2021~2026 교육감 표창 7회, 교육장 표창 2회 등</li>
+<li>2023 교실수업혁신 부총리 겸 교육부장관 표창</li>
+<li>연구대회 6회, 각종 공모전 장관상 등 40회 이상 수상</li>
+<li>2021~2025 한국콘텐츠진흥원 연구교사</li>
+<li>아이스크림 연수원 &lt;교실 속 게이미피케이션&gt; 개발</li>
+<li>GO! FISH 교과서 시리즈 대표저자</li>
+<li>초등임용 튼실튼실 시리즈 대표저자</li>
+</ul>
+<a class="member-btn" href="https://hanasseam.tistory.com/7" target="_blank" rel="noopener"><span class="btn-name">조하나 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FdwTC1F%2FdJMcaaxR2Jl%2FAAAAAAAAAAAAAAAAAAAAACO0802u_FK3YsxAV7knKeN6Ipg8rkzksFZ7ivXtsHiA%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3Dsws1EDytP9wv6mYIK8KKHiYudto%253D" alt="정인영 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">부회장 정인영 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2024 교과서 품질제고 부총리 겸 교육부장관 표창</li>
+<li>2021~2026 교육감 표창 5회, 교육장 표창 2회 등</li>
+<li>2021~2026 각종 공모전 장관상 다수 수상</li>
+<li>2023~2025 부산광역시교육청 초등교육전문지원단</li>
+<li>2022~2025 교육부 교과서모니터링단(수학과)</li>
+<li>2023~2025 부산서부교육지원청 영재강사(수학과)</li>
+<li>GO! FISH 교과서 시리즈 대표저자</li>
+<li>초등임용 튼실튼실 시리즈 대표저자</li>
+<li>2021 인구교육 좋은수업나눔 대회 전국대상(장관상)</li>
+</ul>
+<a class="member-btn" href="https://hellonyong.tistory.com/entry/%EB%87%BD%EC%8C%A4-%ED%94%84%EB%A1%9C%ED%95%84220912" target="_blank" rel="noopener"><span class="btn-name">정인영 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+</div>
+</div>
+<div class="member-group">
+<div class="member-grid grid-three">
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fc8LF6k%2FdJMcaaxR2Jm%2FAAAAAAAAAAAAAAAAAAAAAMPajpMmM3CizoaHCvCN9LeOTVbFRE0yn2ObcjEyf6bq%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3DyENfR3ejKr3o0AKoZpZ5CuxmBiE%253D" alt="민소윤 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">국어팀장 민소윤 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2026 게임문화교육원 창의융합게임 리터러시 콘텐츠 개발위원</li>
+<li>2025 부산광역시교육청 공공학습관리시스템 활용 유공교원 교육감 표창</li>
+<li>2025 부산교육대학교 임용고시 교직논술 및 2차 시험 컨설턴트</li>
+<li>교육기능성 보드게임 지도사 자격 1급, 2급</li>
+<li>부산교육대학교 한국어교육 석사과정</li>
+</ul>
+<a class="member-btn" href="https://soyunssam.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">민소윤 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FP4eZI%2FdJMcabcruFQ%2FAAAAAAAAAAAAAAAAAAAAAICQcIvpyQvtxvJoi9VwRP-TlymWh0ln7sqVLxaACS7H%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3Dt8PFauCwOTnJmU2f4l9lJXiN6MI%253D" alt="정유라 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">수학팀장 정유라 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2024 공공학습관리시스템 부총리 겸 교육부장관 표창</li>
+<li>2024 부산교육대학교 초등수학영재교육과 석사</li>
+<li>2024 부산남부교육지원청 영재강사(수학과)</li>
+<li>2024 AI디지털 교과서(AIDT) 수학 집필위원</li>
+<li>2024 부산수학문화관 수학적사고력증진교실 강사</li>
+<li>2024 늘봄교재 '해봄' 집필위원</li>
+</ul>
+<a class="member-btn" href="https://yurah120.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">정유라 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FxBCzB%2FdJMcacbm7CN%2FAAAAAAAAAAAAAAAAAAAAAB-kzCtRccFxJEwUphIgUaoSpGTqFkrK5Ms8kp7wsSkD%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3DPCQlg9S5taA540MT87DVDRqjPhI%253D" alt="박도현 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">사회팀장 박도현 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>부산게이미피케이션 사회교과팀 팀장 (2025~2026)</li>
+<li>2025 부산광역시혁신수업사례연구대회 (3등급)</li>
+<li>2025 부산 교육연구회유공교원 표창</li>
+<li>2024~2025 부산 상상실현I&amp;D영재캠프 강사</li>
+<li>2024~2025 부산남부수업평가지원단(꿈틀이) 참여</li>
+</ul>
+<a class="member-btn" href="https://dotea-ch.tistory.com/m/2" target="_blank" rel="noopener"><span class="btn-name">박도현 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FcmJxk1%2FdJMcagY75JY%2FAAAAAAAAAAAAAAAAAAAAAIgPpAn61tBUi44KnEshqNWsqUX1LisIPmu_Aoe1J2Fc%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3Dnt0solcJnDmh4gHnPeeTsaN99Fs%253D" alt="이동규 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">과학팀장 이동규 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2024 T셀파 수업 혁신 연구대회 장려상</li>
+<li>아이스크림 연수원 &lt;교실 속 게이미피케이션&gt; 개발</li>
+<li>부산교육대학교 교육대학원 초등과학영재 석사 수료</li>
+<li>KT 인공지능 교육자료(오픈콘텐츠) 개발</li>
+<li>2022 한국콘텐츠진흥원 연구교사</li>
+</ul>
+<a class="member-btn" href="https://krldk.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">이동규 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FDZkuf%2FdJMcabcruFR%2FAAAAAAAAAAAAAAAAAAAAANrZh1ykJHqM62eNv7VXV6InIKC71c8sDLVCQAW6iWLY%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DSkL7oM9svRafm%252BChnakmZLlrzIg%253D" alt="변정희 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">교과자율연구팀장 변정희 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2024 과학의 날 유공교원 부산광역시 교육감 표창</li>
+<li>2024 해운대영재교육원 초등과정 수학과 강사</li>
+<li>2024 초등 디지털 기반 수업 혁신(AIDT) 연수 강사</li>
+<li>2023 제17회 부산교육정보화연구대회 2등급</li>
+<li>2023 제55회 부산교육자료전 2등급</li>
+</ul>
+<a class="member-btn" href="https://dreamzirak.tistory.com/m/2" target="_blank" rel="noopener"><span class="btn-name">변정희 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+</div>
+</div>
+<div class="member-group">
+<div class="member-grid grid-three">
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fbp6yBk%2FdJMcaadzr0y%2FAAAAAAAAAAAAAAAAAAAAAHh_DEDI65w_Y1iVOLx2oEXjUwWrEs_BMGsORCVWqcj9%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3D%252Foitw3pP4YoQO3s3gfq8T0lJRj4%253D" alt="권하정 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">영상부장 권하정 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>아이스크림 연수원 &lt;교실 속 게이미피케이션&gt; 개발</li>
+<li>2024 부산광역시교육청 자랑스런 스승상(교육감상)</li>
+<li>2024 교육연구회 운영 유공교원 교육감 표창</li>
+<li>2024 부산교육대학교 초등임용고시 1, 2차 멘토</li>
+<li>2020 남부교육지원청 교육활동 유공 교육장 표창</li>
+</ul>
+<a class="member-btn" href="https://hadongteacher.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">권하정 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FVEdWB%2FdJMcagY75JP%2FAAAAAAAAAAAAAAAAAAAAACxJWCn8Pux5enEpvjElBbP6FFm1D2YVluog-bxlKjjY%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DJps8bOgvivP9BdFCL1jLLZJGENk%253D" alt="류윤제 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">홍보부장 류윤제 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2025 부산광역시교육청 인성교육실천사례연구발표대회 (1등급)</li>
+<li>2025 부산광역시교육청 교육연구회 운영 유공교원 교육감 표창</li>
+<li>2025 주례 열린 도서관 토요특강 강사</li>
+<li>2024 초등 영재교육대상자 상상실현(I&amp;D) 캠프 강사</li>
+<li>2023 한국에니어그램교육연구소 한국형에니어그램 강사(상담사, 일반강사)</li>
+</ul>
+<a class="member-btn" href="https://ryunssam.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">류윤제 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FdglJlD%2FdJMcagY75JR%2FAAAAAAAAAAAAAAAAAAAAALqN1nh2iQXSLkumFHlfC9Cp2aLBpGc-Lofdyf9JRf4c%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3DagMpkQOkJMsIEO62KObhkPUA7%252Bw%253D" alt="김선아 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연수부장 김선아 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2026 부산광역시교육청 남부영재교육원 강사 (수학)</li>
+<li>2026 부산광역시교육청 어린이창의교육관 발명교실 지도강사</li>
+<li>2025 부산광역시교육청 교육활동 유공 교육감 표창</li>
+<li>2025 제57회 부산교육자료전 3등급 (수학)</li>
+<li>2025 제19회 선생님 자랑대회 자랑스러운 스승상 교육장상</li>
+</ul>
+<a class="member-btn" href="https://ryunssam.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">김선아 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fb4D5ll%2FdJMcabcruFS%2FAAAAAAAAAAAAAAAAAAAAAJub1tJc-BE9QR7NG9QQlBoE2YIG4vfQGRtWhOVDOlIJ%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3DOq8P%252B9j7YwzITiMn1hTMPq%252B0SaA%253D" alt="오현수 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">기획부장 오현수 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2026 남부 영재교육원 초등영역 과학과 영재강사</li>
+<li>2025 창의융합 보드게임 대축제 부스 강사</li>
+<li>2025 부산수학문화관 겨울방학 체험수학캠프 강사</li>
+<li>2025 부산교대 초등임용고사 2차 컨설팅 컨설턴트</li>
+<li>교육기능성 보드게임 지도사 자격 1급, 2급</li>
+</ul>
+<a class="member-btn" href="https://hyunsoossam.tistory.com/1" target="_blank" rel="noopener"><span class="btn-name">오현수 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fcmja1b%2FdJMcagY75JQ%2FAAAAAAAAAAAAAAAAAAAAAGhpRNIPqmDmO5Sv1m3DCzsMNzKuVy0yAGQuqN606UK5%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3DxbbhbGHGYzAZcXvyg6%252Bn%252BfOB3VE%253D" alt="조홍재 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">관리부장 조홍재 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2024 디지털새싹 구름 지도강사</li>
+<li>2024 아이스크림 체험단 쌤샘 13기</li>
+<li>2024 부산과학축전 수학부스 운영 강사</li>
+<li>2024 영재교육진흥원 상상실현 캠프 지도강사</li>
+<li>교육기능성 보드게임 지도사 자격 1. 2급</li>
+</ul>
+<a class="member-btn" href="https://teacher-hong.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">조홍재 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+</div>
+</div>
+<div class="member-group">
+<div class="member-grid grid-three">
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fvoe7X%2FdJMcagY75JT%2FAAAAAAAAAAAAAAAAAAAAAPslhwAdNrolaZ4Y3qalk0feJuh0l1SJPoyhXrTMUfpK%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3Dby8Rcd4OcZQejKqokV9oxvbMWy4%253D" alt="김서현 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">국어부팀장 김서현 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2024 한국교원대 늘봄학교 프로그램 수업안 개발</li>
+<li>2024 교단지원 유공교원 부산광역시 교육장 표창</li>
+<li>2023~24 부산교대 임용고사 2차 컨설팅 컨설턴트</li>
+<li>2023 부산남부교육지원청 인성교육자료 올담 개발</li>
+<li>교육기능성 보드게임 지도사 1급, 2급</li>
+</ul>
+<a class="member-btn" href="https://seohyeun-ssam.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">김서현 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2F73JnK%2FdJMcagY75JW%2FAAAAAAAAAAAAAAAAAAAAALjq7ayPRAOI6Z_4U_JH7XgGN8wRHe3wCiRwFFv_aQ2e%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3D0Hh%252FU5JXxJAfKHTvoftdZ8cjY0Q%253D" alt="최서현 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">수학부팀장 최서현 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2026 해운대영재교육원 초등과정 수학과 강사</li>
+<li>2025 부산광역시교육청 게이미피케이션 활용 교수&middot;학습 찾아가는 교육 강사</li>
+<li>2025 인성교육실천사례연구발표대회 부산 (3등급)</li>
+<li>2024 한국콘텐츠진흥원 게임리터러시 연구 교사</li>
+<li>부산교육대학교 AI 융합 교육 전공 석사 과정</li>
+</ul>
+<a class="member-btn" href="https://dream-t-booboo.tistory.com/page/%EB%B6%80%EC%9A%B0%EB%B6%80%EC%8C%A4-%ED%94%84%EB%A1%9C%ED%95%8424-4-22ver" target="_blank" rel="noopener"><span class="btn-name">최서현 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FGrDVk%2FdJMcagY75JX%2FAAAAAAAAAAAAAAAAAAAAAN-YXmfwCmjYbosSao0kVZFr_PP1b3u46Apvr_VfmOrN%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3DMEDafhtvgoQFg%252BR21ynWooidqBk%253D" alt="김현진 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">사회부팀장 김현진 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2024 부산교육대학교 소프트랩 에듀테크 자문위원</li>
+<li>2023 북부교육지원청 교육활동 유공 교육장 표창</li>
+<li>2024 부산교총 전문성 신장을 위한 교원 연수 강사</li>
+<li>구글 공인교육전문가 1급, 2급</li>
+<li>교육기능성 보드게임 지도사 1급, 2급</li>
+</ul>
+<a class="member-btn" href="https://haenssaem.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">김현진 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fcbm9pI%2FdJMcaadzr0C%2FAAAAAAAAAAAAAAAAAAAAAJKFOWyOdEt9xCKgV7drykMKDy84O4OZvbhhpIcKUxw8%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3Dwr1YZ8BcTC5CtWzMBKcLdruD3Vg%253D" alt="김영찬 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">과학부팀장 김영찬 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2026 부산영재교육원 초등과학영역 강사 (화학, 생명과학)</li>
+<li>2025-2026 부산실천교육교사모임 교원단체 부회장</li>
+<li>2025 제 62회 부산과학전람회 지도논문대회 2등급</li>
+<li>2025 부산광역시교육청 과학교육 유공 교육감표창</li>
+<li>부산교육대학교 과학영재교육전공 석사 과정</li>
+</ul>
+<a class="member-btn" href="https://teacher0chan.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">김영찬 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FmAmBF%2FdJMcaaxR2Jo%2FAAAAAAAAAAAAAAAAAAAAANG5FqHxdrvEw_UL4-q97FpYZdoaIUGA8XALP_wHboDS%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3D%252FiQKvakr%252BrxezX6ykUBnqde6JhU%253D" alt="김민지 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">교과자율연구부팀장 김민지 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2025 교육부 함께학교 미담사례 교사상(부총리 겸 교육부 장관상)</li>
+<li>2025 교육연구회 실천사례 연구대회 3등급(교육감상)</li>
+<li>2024 부산광역시교육청 자랑스런 스승상(교육감상)</li>
+<li>2022 전국교대 좋은 수업 탐구대회 2위</li>
+<li>한국교원대학교 초등영어교육과 석사 과정</li>
+</ul>
+<a class="member-btn" href="https://teacher-minji.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">김민지 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbKap1B%2FdJMcaadzr0z%2FAAAAAAAAAAAAAAAAAAAAABFTxi8GLkTe13C7hVj9OHhPC7mWeGDzM78HfLQNppma%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3D2Myn4HSCGBoQlC%252BZgRvRaA4gqzU%253D" alt="박미진 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">교과자율연구부팀장 박미진 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2025 AIEDAP 마스터 교원</li>
+<li>2025 교육연구회 실천사례 연구대회 (3등급)</li>
+<li>2025 부산광역시교육청 메타버스학교 사제동행 챌린지 장려상</li>
+<li>2024~2025 동래, 남부 디지털기반 혁신연수 강의</li>
+<li>교육기능성 보드게임 지도사 자격 1급, 2급</li>
+</ul>
+<a class="member-btn" href="https://profuse-cork-534.notion.site/17d0345e21ae80f7a136d4e5207446bc" target="_blank" rel="noopener"><span class="btn-name">박미진 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+</div>
+</div>
+<div class="member-group">
+<div class="member-grid grid-three">
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FGrDVk%2FdJMcagY75JX%2FAAAAAAAAAAAAAAAAAAAAAN-YXmfwCmjYbosSao0kVZFr_PP1b3u46Apvr_VfmOrN%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DcpOEsyrjyTeMJmb6QuojjEz%252Fif0%253D" alt="배우진 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">재정차장 배우진 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>아이스크림 연수원 &lt;교실 속 게이미피케이션&gt; 개발</li>
+<li>부산교육대학교 교육대학원 발명영재교육 석사 수료</li>
+<li>2024~25 EBS 초중학 강의 검수 교사</li>
+<li>2024~25 어린이창의교육관 발명교실 강사</li>
+<li>초등임용 튼실튼실 시리즈 대표저자</li>
+</ul>
+<a class="member-btn" href="https://woojinteacher.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">배우진 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FcK61e8%2FdJMcagY75JS%2FAAAAAAAAAAAAAAAAAAAAABpcnGHPUKRUgVF4iIifoTW4x-Ca-EBZtkaHEZQkJbW6%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3D8FfKumyRztH6dEhpoTqr%252BqdIfks%253D" alt="정수민 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">영상부차장 정수민 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2024 데이터분석 준전문가(ADsP) 자격 취득</li>
+<li>2023 강서기적의도서관 여름방학 과학 특강 강사</li>
+<li>2023 AI/SW 디지털 새싹 캠프 지도 강사</li>
+<li>2023 부산교대 초등임용고사 2차 컨설팅 컨설턴트</li>
+<li>부산교육대학교 교육대학원 AI융합교육 전공 석사</li>
+</ul>
+<a class="member-btn" href="https://suminpumi.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">정수민 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FVQjPW%2FdJMcagY75JU%2FAAAAAAAAAAAAAAAAAAAAAMIpCEvX1LcY9gC81Yw8gXAgPTt0nOQ7GdEFY4E4ULHG%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DxJfYeJwxqECwxjsGy6gY5bUJO7Y%253D" alt="박민영 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">홍보부차장 박민영 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2025 부산광역시교육청 디지털미디어리터러시 유공교원 교육감 표창</li>
+<li>2025 부산광역시교육청 인성교육 실천사례연구발표대회 (3등급)</li>
+<li>2025 부산광역시교육청 교육연구회 실천사례연구대회 (3등급)</li>
+<li>2025~2026 미래엔X부산교육대학교 멘토링 멘토</li>
+<li>2023 부산광역시교육청 자랑스런 스승상 (교육장상)</li>
+</ul>
+<a class="member-btn" href="https://blog.naver.com/mignon1023/223563762470" target="_blank" rel="noopener"><span class="btn-name">박민영 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FCLSzz%2FdJMcagY75JV%2FAAAAAAAAAAAAAAAAAAAAADMMe6d7XjrC-JLKdzB0PVZU_4fWcsXJ82zwo38BRxgj%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DQlko4A2cE%252BuLTCiTwZl6csUuGr4%253D" alt="심미경 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연수부차장 심미경 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2023 서부교육지원청 교육활동 유공 교육장 표창</li>
+<li>2024 부산교육대학교 초등임용고시 1, 2차 멘토</li>
+<li>아이스크림 연수원 &lt;교실 속 게이미피케이션&gt; 개발</li>
+<li>교육기능성 보드게임 지도사 자격 1급, 2급</li>
+<li>부산교육대학교 교육대학원 초등과학영재교육전공</li>
+</ul>
+<a class="member-btn" href="https://ssimssam.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">심미경 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FEtLdP%2FdJMcaaxR2Jn%2FAAAAAAAAAAAAAAAAAAAAAEWewKIEc-mPdYdScB5ZHuGRBtNjnBMdItDn5R5Y-gqp%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3D1DVVL0dGjHBH3vThj8DEAm0%252FQ2I%253D" alt="이지수 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">기획부차장 이지수 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2026 부산수학문화관 겨울방학 체험수학캠프 개발위원 및 강사</li>
+<li>2025 부산광역시교육청 언어문화개선 말글맘 공모전 수업사례 (최우수상)</li>
+<li>2025 부산광역시교육청 인성교육실천사례 연구발표대회 (2등급)</li>
+<li>2025 방송통신위원회/한국지능정보사회진흥원 디지털윤리 창작콘텐츠 공모전 (장려상)</li>
+<li>2025 한국콘텐츠진흥원 교사 게임리터러시 강사</li>
+</ul>
+<a class="member-btn" href="https://end0fsummer.tistory.com/" target="_blank" rel="noopener"><span class="btn-name">이지수 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Foaleo%2FdJMcacbm7CQ%2FAAAAAAAAAAAAAAAAAAAAACf3PTAQx3LeUQfPN5KzWKIPXGzcgYTldo2jbq0ESZa_%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3DB9ab0shX7%252BPVVqPA7zP7tcGQr80%253D" alt="홍성준 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">관리부차장 홍성준 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2025 미래엔 카드톡 개발위원(6학년 사회, 도덕)</li>
+<li>2025 어린이창의교육관 어린이박람회 강사(로봇축구)</li>
+<li>2025 찾아가는 창의발명 늘봄교실 강사</li>
+<li>교육기능성 보드게임 지도사 2급</li>
+</ul>
+<a class="member-btn" href="https://jjunteacher.tistory.com/1" target="_blank" rel="noopener"><span class="btn-name">홍성준 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+</div>
+</div>
+<div class="member-group">
+<div class="member-grid grid-three">
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbSMckZ%2FdJMcabcruFT%2FAAAAAAAAAAAAAAAAAAAAAFG_tEcpyNZw23F53bVb71IBt-4m1DbkG7qcAK7QoOQ0%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DSNDVYgjZqZRY2X5NDv8WMOa%252FDmk%253D" alt="백수빈 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 백수빈 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2026 미래엔 멘토링 프로젝트 미래잇다 2기 멘토</li>
+<li>2025 교육실습협력학교 지도교사 (주감초)</li>
+<li>2025 수학대왕 선도교사단 기획총괄</li>
+<li>2025 부산교육대학교 대학원 초등수학교육과 석사 과정</li>
+<li>교육기능성 보드게임 지도사 자격 1급, 2급</li>
+</ul>
+<a class="member-btn" href="https://subin2007f.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">백수빈 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fr6y0m%2FdJMcagY75JZ%2FAAAAAAAAAAAAAAAAAAAAABMdSZ8xdp_istdWuP51NS1n36Z_RsGatkFlYDbOje9m%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3DSmNJ6KgMsPlGwrVxAEShf8p152E%253D" alt="서예진 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 서예진 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2024 부산남부교육지원청 꿈틀이 수업평가 지원단</li>
+<li>2024 어린이 수학동아 수학동화 이야기 및 그림 작가</li>
+<li>2023 남부교육지원청 인성교육자료 올담 개발위원</li>
+<li>2024 부산광역시교육청 게이미피케이션 교수학습 컨설턴트</li>
+<li>2023 초등영재교육원 교육과정 검토위원</li>
+</ul>
+<a class="member-btn" href="https://zzinsteacher.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">서예진 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FUUy5O%2FdJMcagY75J1%2FAAAAAAAAAAAAAAAAAAAAALdQnwxJE176MUP6FNFilWiWs_HJFYp7QNG47tu9yiGi%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DG8ut2Lo%252B%252BpGTwl0HECTdB8ZPqpw%253D" alt="박주홍 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 박주홍 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2025 CTCSOL 국제중국어교사 자격증</li>
+<li>2025 제 9회 우수 헌법수업 경연대회 대상</li>
+<li>2025 디지털 미디어 문해교육 우수연구회 최우수상</li>
+<li>2025 게이미피케이션 교수&middot;학습 찾아가는 교육 강사</li>
+<li>2024~2025 영재교육진흥원 상상실현 캠프 강사</li>
+</ul>
+<a class="member-btn" href="https://pandahong.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">박주홍 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fd1paGs%2FdJMcaadzr0A%2FAAAAAAAAAAAAAAAAAAAAAMgLKrWi5NqFbDzQa6VH1mVfGn1V-5-QhTqZaYpb2i2Z%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DE%252BfHihbjV43CJfyCEHwXt0hnhng%253D" alt="정규경 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 정규경 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2024 부산광역시영재교육진흥회 우수분과 선정</li>
+<li>2024 디지털 미디어 리터러시 유공 교육감 표창</li>
+<li>2024 부산영재교육진흥원 상상실현 캠프 강사</li>
+<li>2024 AIEDAP 마스터 교원</li>
+<li>2024 부산남부교육지원청 꿈틀이 수업&middot;평가 지원단</li>
+</ul>
+<a class="member-btn" href="https://dreamkkebi.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">정규경 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FU00hb%2FdJMcagY75J0%2FAAAAAAAAAAAAAAAAAAAAAA8qIF6GuNL2HsRYj_sD6TqXUGZl40FI6o6UiiK-Thkf%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DsY%252BPBNHCavQcvKp6P1lfByHiOKY%253D" alt="김현주 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 김현주 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2024 강서 기적의 도서관 3~4학년 대상 강의</li>
+<li>2023 부산광역시교육청 교육활동 유공 교육감 표창</li>
+<li>2024 부산광역시교육청 게이미피케이션 교수학습 컨설턴트</li>
+<li>2024 진구 기적의 도서관 1~2학년 대상 강의</li>
+<li>2024 미래엔 초등 수학 교수학습자료 디지털 문항 검토 및 해설 개발</li>
+</ul>
+<a class="member-btn" href="https://leehy0307.tistory.com/2" target="_blank" rel="noopener"><span class="btn-name">김현주 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FJqALC%2FdJMcacbm7CU%2FAAAAAAAAAAAAAAAAAAAAANPPmyFI_u8dlDFSZfURBuGJzgy4N5bVS8j8Ji91qQ0v%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3DK4cckXcqibN3Be9BwDB72C7mQ0Q%253D" alt="하진영 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 하진영 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2024 금성출판사 제1회 교육 분야 AI 활용 사례 공모전 (장려상)</li>
+<li>2024 인성교육실천사례연구발표대회 도대회 (1등급)</li>
+<li>e학습터 수업지도안 공모 (장려상)</li>
+<li>2023 게임리터러시 수업안 경진대회 입상</li>
+<li>2023~24 한국콘텐츠진흥원 게임리터러시 연구교사</li>
+<li>AIDEAP 마스터 교원 이수</li>
+</ul>
+<a class="member-btn" href="https://mystory3338.tistory.com/1" target="_blank" rel="noopener"><span class="btn-name">하진영 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FvXddI%2FdJMcahX228i%2FAAAAAAAAAAAAAAAAAAAAAHPoUjVOaq9xMUyFpEVaAE9wm3xthL-Xwaovsd3cyzWC%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DpwarZDqIQEJ0aHWC5ZiPoGuVJz0%253D" alt="권순호 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 권순호 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2024~25 어린이창의교육관 초등발명교실 지도강사</li>
+<li>2024 부산SW교육지원센터 교원 연수 지도강사</li>
+<li>2024 교육활동 유공교원 교육장 표창</li>
+<li>2023~2024 초등영재교육원 집중수업 지도강사</li>
+<li>2023 한국과학창의재단 디지털새싹캠프 지도강사</li>
+</ul>
+<a class="member-btn" href="https://story2438.tistory.com/1" target="_blank" rel="noopener"><span class="btn-name">권순호 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FctR1E4%2FdJMcaiWU4Kk%2FAAAAAAAAAAAAAAAAAAAAAMJIreSSBCC7v9rYMbCVSb40tksCU0FFN2-BGkrz-1-H%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DgmQ3tHOddYNKvyJTqiAnvOdonVo%253D" alt="김선우 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 김선우 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2026 AI융합학교체육연구회 Busan 회장</li>
+<li>2025 미래엔 초등 5학년 2022개정 사회 PPT 자료 개발</li>
+<li>2024 부산교육대학교 교육실습 협력학교 지도교사</li>
+<li>2024 부산광역시교육청 STEAM&amp;MAKER교육 유공 표창</li>
+<li>2024~2025 한국창의과학재단 찾아가는학교컨설팅 컨설턴트</li>
+</ul>
+<a class="member-btn" href="https://teacher-ksunnu.tistory.com/1" target="_blank" rel="noopener"><span class="btn-name">김선우 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fbrpo66%2FdJMcahX228e%2FAAAAAAAAAAAAAAAAAAAAAM8xkhGA-KrMBgPWVTGrvD1_nm_Uue5EsABYiZ_jQGyC%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DRorvlHCZ7Cf4HYPxd5OQiZOJmTw%253D" alt="최진영 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 최진영 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2024 해운대교육지원청 디지털기반 수업혁신 역량강화 연수 강사</li>
+<li>2024 디지털기반 수업혁신사례연구대회 수학과 (2등급)</li>
+<li>2022 교육활동 유공교원 교육장 표창</li>
+<li>2021 제53회 부산교육자료전 실과분야 (1등급)</li>
+<li>부산교육대학교 초등수학영재교육전공 석사</li>
+</ul>
+<a class="member-btn" href="https://eddie227.tistory.com/1" target="_blank" rel="noopener"><span class="btn-name">최진영 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FPrza8%2FdJMcahX228f%2FAAAAAAAAAAAAAAAAAAAAALz3sgBANdOs12MDaINOYQHWEM4Y3u38PWP0Q7bXE5UZ%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DPyVr%252FRc%252BdArD5ljVCGy%252B4TtMlrI%253D" alt="이서현 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 이서현 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2025 부산교육대학교 에듀테크 소프트랩 실증단</li>
+<li>2025 부산수학문화관 겨울방학 체험수학캠프 강사</li>
+<li>2025 남부교육지원청 교육활동 유공 교육장 표창</li>
+<li>2025 언어문화개선 말글맘 공모전 아이디어 부문 (장려상)</li>
+<li>2024 AIEDAP 마스터교원</li>
+</ul>
+<a class="member-btn" href="https://hiseohyeoon.tistory.com/1" target="_blank" rel="noopener"><span class="btn-name">이서현 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FOwOXj%2FdJMcaiWU4Kl%2FAAAAAAAAAAAAAAAAAAAAAG7mEzTYuTAPo_5FnwrShNRjabzjMGVONDzyBJiKty3B%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DJialQZtM8zbztrWqdnu6uNUMi1E%253D" alt="이동한 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 이동한 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2026 부산광역시 남부교육지원청 영재강사 (과학)</li>
+<li>2026 제18회 전국창업발명경진대회 지도교사 대상</li>
+<li>2026 부산광역시교육청 학생자치 길라잡이 개발 TF팀</li>
+<li>2025 부산광역시교육청 교육감 표창 (학생자치 활성화)</li>
+<li>2025 제57회 부산교육자료전 3등급 (수학)</li>
+</ul>
+<a class="member-btn" href="http://donghan0206.tistory.com/1" target="_blank" rel="noopener"><span class="btn-name">이동한 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fc5FFZ9%2FdJMcahX228g%2FAAAAAAAAAAAAAAAAAAAAAHs2opQmk7RqkT3rc2e4ymZKDZGTSZJpTJcs4yAPJF42%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3DOUJH2%252F%252FEqQvJb%252Fj857ihVMRdCi0%253D" alt="노혜민 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 노혜민 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2024 교육과정 운영 및 수업혁신 실천 유공 교원 표창</li>
+<li>2024 AIEDAP 경남권역 마스터 교원</li>
+<li>2024 교실혁명선도교사</li>
+</ul>
+<a class="member-btn" href="https://blog.naver.com/nhm970821" target="_blank" rel="noopener"><span class="btn-name">노혜민 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbVDJwy%2FdJMcahX228h%2FAAAAAAAAAAAAAAAAAAAAACAd7rfSYo2JezNFhO7lThTp2-3fAHzD3yD6HWiwqq-u%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DVCCKFrLQe42rfs9hl1tMRZmHzUQ%253D" alt="신주희 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 신주희 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2025 부산게이미피케이션 교육연구회 연구위원</li>
+<li>T셀파 2024 수업 혁신 연구대회 장려상</li>
+</ul>
+<a class="member-btn disabled" href="#">프로필 준비중</a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FEyjK2%2FdJMcahX228k%2FAAAAAAAAAAAAAAAAAAAAAAmz-9XUxU_Rn37I6OSkrYmU4Aaj7-wWE-s7B4krybU-%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3Dyi4i10dcJ6FuOneAInYR17z7L1M%253D" alt="김류리 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 김류리 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2025 부산게이미피케이션 교육연구회 연구위원</li>
+<li>교육기능성 보드게임 지도사 자격 1급, 2급</li>
+</ul>
+<a class="member-btn" href="https://blog.naver.com/prinaurora" target="_blank" rel="noopener"><span class="btn-name">김류리 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FzQhB6%2FdJMcac3t4zJ%2FAAAAAAAAAAAAAAAAAAAAAPUQEcJvG0-a9Z4um3uVqAnwNPw3WHFbmQaYH1IpWyM_%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3DTOs%252FXPIZ%252FSSJLltQr479KbHDO%252Fo%253D" alt="정세연 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 정세연 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2026 미래엔 MakeX 교사단</li>
+<li>2025 ZEP School&amp;ZEP Quiz 활용 교사단</li>
+<li>2025 부산학력개발원 기초학력지원센터 마음피움 강사</li>
+<li>2025 부산수학문화관 겨울캠프 강사</li>
+<li>교육기능성 보드게임 지도사 자격 1급, 2급</li>
+</ul>
+<a class="member-btn" href="https://eyegamja.tistory.com/43" target="_blank" rel="noopener"><span class="btn-name">정세연 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FczuXcp%2FdJMcaiWU4Kp%2FAAAAAAAAAAAAAAAAAAAAACvJU2iPL4JeOfno11uRChOTHLf6jqNKeZY0Nnh4JI8b%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3D%252BY%252FPTkFVLb8zb0SBNuhMG0xD5WA%253D" alt="김윤경 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 김윤경 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2025 부산게이미피케이션 교육연구회 연구위원</li>
+<li>2025 언어문화개선 말글맘 공모전 아이디어 부문 (장려상)</li>
+<li>교육기능성 보드게임 지도사 자격 1급, 2급</li>
+</ul>
+<a class="member-btn disabled" href="#">프로필 준비중</a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FxkQ5C%2FdJMcahX228l%2FAAAAAAAAAAAAAAAAAAAAAFHuQg9h-ujtjA0r69GMw9nh11TFobPH8_oY6CKQhwJO%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DwE6dx7oJVtKP2T5ohJaWHrPD8xw%253D" alt="김예은 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 김예은 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>AI GPT 교육전문가 1급</li>
+<li>HTHT 교육전문가 2급</li>
+<li>교육혁신 선도교사</li>
+<li>AIEDAP 마스터교원</li>
+<li>교육기능성 보드게임 지도사 1급</li>
+</ul>
+<a class="member-btn disabled" href="#">프로필 준비중</a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fejc3QM%2FdJMcaiWU4Kq%2FAAAAAAAAAAAAAAAAAAAAAIxWRcEDQ0rcggjLpCyr2Mq6iLIPg1xF3LgzS0JoJUT9%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3Dtyl%252F1yPBDTLtacSWoAaRo%252FZVQZI%253D" alt="오경서 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 오경서 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2024 중구 희망교육지구 지역 연계 교육과정 개발위원</li>
+<li>2024 부산서부교육지원청 디지털 기반 교육혁신 교원연수 위원</li>
+<li>2024 AIEDAP 마스터 교원</li>
+<li>교육기능성 보드게임 지도사 자격 1급, 2급</li>
+</ul>
+<a class="member-btn" href="https://descriptive-origami-f9c.notion.site/25-1-15-17ce590ef1ae80da932eff4883ac596c?pvs=73" target="_blank" rel="noopener"><span class="btn-name">오경서 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbyRgrR%2FdJMcagY75J7%2FAAAAAAAAAAAAAAAAAAAAAIYdETnmLXptbas1oRl0PscxfYEXE-g7SERj_e6QfbeJ%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3D31UW5vD6rDImvdVZsbRxnr5v8sQ%253D" alt="정예슬 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 정예슬 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>∎ 2026 미래엔 교대생 멘토링 프로젝트 미래잇다 2기 멘토</li>
+<li>∎ 2025~2026 AI&middot;디지털 기반 교육혁신 선도교사</li>
+<li>∎ 2025~2026 AIEDAP 마스터 교원</li>
+<li>∎ 2025~2026 구글&middot;제미나이 공인 교육 전문가</li>
+<li>∎ 2025 교실 속 게이미피케이션 교육 강사</li>
+</ul>
+<a class="member-btn" href="https://blog.naver.com/yesl_t/224208731661" target="_blank" rel="noopener"><span class="btn-name">정예슬 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fbi1qgf%2FdJMcaiWU4Kr%2FAAAAAAAAAAAAAAAAAAAAAH63rsVMpUd_LkhJhG-03m34PZmF85K8p1ckLgTZPqPF%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3D9vNJTNuyoqTAzwYp6%252FNabI%252Fu4Oc%253D" alt="황보예린 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 황보예린 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2026 부산게이미피케이션 교육연구회 연구위원</li>
+<li>2025 AIEDAP 마스터교원</li>
+<li>2025 메타버스학교 사제동행 챌린지 (장려상)</li>
+<li>2025 디지털 교육페스타 생성형 AI 뮤직비디오 (우수상)</li>
+<li>2025 한국독서문화재단 AI 창작 그림책 공모전 (대상)</li>
+</ul>
+<a class="member-btn" href="https://yerinssam.tistory.com/1" target="_blank" rel="noopener"><span class="btn-name">황보예린 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FlUn8C%2FdJMcaiWU4Ko%2FAAAAAAAAAAAAAAAAAAAAABZdLeT3_6ngi2-ltqpsqc8-BtDX4jNgttXJVLBvkuZ3%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DTJV0dEJz%252F0Z6KejIqvli8lfOu7s%253D" alt="조가영 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 조가영 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2025 학교로 찾아가는 AI 활용 프로그램 강사</li>
+<li>2025 부산 디지털 교육 페스타 운영 강사</li>
+<li>2025 늘봄전용학교 여름방학 AI 활용 프로그램 강사</li>
+<li>2024 한국과학창의재단 디지털새싹캠프 운영 강사</li>
+<li>2023 부산교육대학교 임용고시 2차 시험 컨설턴트</li>
+</ul>
+<a class="member-btn" href="https://m.blog.naver.com/scarlet7751/224208746504" target="_blank" rel="noopener"><span class="btn-name">조가영 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fcjz391%2FdJMcahX228j%2FAAAAAAAAAAAAAAAAAAAAAKYygn3M3s1BcWyyKeaQN6a4a7sW9fQBuBDlY7zO-U9W%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3DuZ4XMVj7y5qU%252FJOMRu2o0CEMhNg%253D" alt="최복경 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 최복경 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>재외한국학교(무석한국학교) 초빙 근무 (2024~2025)</li>
+<li>2023 제17회 부산교육정보화연구대회 (2등급)</li>
+<li>2023 제55회 부산교육자료전 2등급</li>
+</ul>
+<a class="member-btn" href="https://bbookk89.tistory.com/1" target="_blank" rel="noopener"><span class="btn-name">최복경 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FLdgIY%2FdJMcagY75J8%2FAAAAAAAAAAAAAAAAAAAAACgRFT_eaRvj_oPwBDkWPKs1_seBHkKiCxg_r_zVZKXG%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DvnWCgf8ak9UxnXjV1DEcJ0zpQ%252F0%253D" alt="최지윤 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 최지윤 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>2026 make X 교사단</li>
+<li>2025 미래엔 에듀테크 자료집 개발</li>
+<li>연세대학교 교육대학원 교육공학과 석사</li>
+</ul>
+<a class="member-btn disabled" href="#">프로필 준비중</a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FsRd6y%2FdJMcahX228m%2FAAAAAAAAAAAAAAAAAAAAADsFoeEuLcQPUysmHOCk-GNlcLXLuqFoceK2PU8BwRN6%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3D2aXq%252B5ay4SXKaZ3EnyTCdcVANrQ%253D" alt="정어진 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 정어진 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>부산게이미피케이션 교육연구회 연구위원</li>
+</ul>
+<a class="member-btn" href="https://sites.google.com/view/gamezoa/%ED%99%88" target="_blank" rel="noopener"><span class="btn-name">정어진 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fcc1n0K%2FdJMcac3t4zK%2FAAAAAAAAAAAAAAAAAAAAAFYD6dQqzhzYmpXqMBOgfxIaVHxTnopRmRvZPK3oeH-R%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1785509999%26allow_ip%3D%26allow_referer%3D%26signature%3Df3thaQi1NN%252B4HtJQi73Z6rAcL3M%253D" alt="우지희 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 우지희 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>부산케이미피케이션 교육연구회 연구위원</li>
+</ul>
+<a class="member-btn disabled" href="#">프로필 준비중</a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FYHeJy%2FdJMcaiWU4Km%2FAAAAAAAAAAAAAAAAAAAAAMfhBScQDQdWbJPoYBsP5D0AFFQOJdpMAXhf4W7ebNbQ%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3D8U3uRjAVg3YPg2WqIJW4FSvZaDU%253D" alt="박정현 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 박정현 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>부산게이미피케이션 교육연구회 연구위원</li>
+</ul>
+<a class="member-btn disabled" href="#">프로필 준비중</a></div>
+<div class="member-card">
+<div class="member-img"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbmtNJa%2FdJMcaiWU4Kn%2FAAAAAAAAAAAAAAAAAAAAAFPfr3ic6yflwjq1fwbKbroYeM-UeaZtylNRvtC7ANqc%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DZy5i%252F1JB%252BH92QCF4QxSl0zeg%252B7k%253D" alt="강다솜 선생님" /></div>
+<h3 class="member-name" data-ke-size="size23">연구위원 강다솜 선생님</h3>
+<ul class="member-desc" style="list-style-type: disc;" data-ke-list-type="disc">
+<li>부산게이미피케이션 교육연구회 연구위원</li>
+</ul>
+<a class="member-btn" href="https://somteach.tistory.com/m/1" target="_blank" rel="noopener"><span class="btn-name">강다솜 선생님</span><span class="btn-action">프로필 보기</span></a></div>
+</div>
+</div>
+</div>
+</body>
+</html>
